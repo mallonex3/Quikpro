@@ -1,470 +1,797 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0b0b0f">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b0b0f">
 
-<link rel="manifest" href="/Quikpro/manifest.json">
+  <link rel="manifest" href="/Quikpro/manifest.json">
 
-<title>QuikPro</title>
+  <title>QuikPro</title>
 
-<style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
 
-body {
-  background: #0b0b0f;
-  color: white;
-  min-height: 100vh;
-}
+    body {
+      background: #0b0b0f;
+      color: white;
+      min-height: 100vh;
+    }
 
-.app {
-  max-width: 600px;
-  margin: auto;
-  padding: 22px;
-}
+    .app {
+      max-width: 600px;
+      margin: auto;
+      padding: 22px;
+    }
 
-.screen {
-  display: none;
-}
+    .screen {
+      display: none;
+    }
 
-.screen.active {
-  display: block;
-  animation: apparition 0.3s ease;
-}
+    .screen.active {
+      display: block;
+      animation: apparition 0.3s ease;
+    }
 
-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 35px;
-}
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 35px;
+    }
 
-.logo-area {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
 
-.logo {
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  object-fit: cover;
-}
+    .logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      object-fit: cover;
+    }
 
-.brand {
-  font-size: 24px;
-  font-weight: bold;
-}
+    .brand {
+      font-size: 24px;
+      font-weight: bold;
+    }
 
-.profile {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  background: #202027;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-}
+    .profile {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #202027;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      cursor: pointer;
+    }
 
-.welcome {
-  margin-bottom: 25px;
-}
+    h1 {
+      font-size: 30px;
+      margin-bottom: 10px;
+    }
 
-.welcome h1 {
-  font-size: 32px;
-  margin-bottom: 8px;
-}
+    .welcome {
+      margin-bottom: 25px;
+    }
 
-.welcome p {
-  color: #a5a5ad;
-}
+    .welcome h1 {
+      font-size: 32px;
+    }
 
-.main-button {
-  width: 100%;
-  border: none;
-  border-radius: 18px;
-  padding: 20px;
-  background: white;
-  color: black;
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
-  margin-bottom: 30px;
-}
+    .welcome p,
+    .description {
+      color: #a5a5ad;
+    }
 
-.section-title {
-  font-size: 20px;
-  margin-bottom: 14px;
-}
+    .main-button {
+      width: 100%;
+      border: none;
+      border-radius: 18px;
+      padding: 20px;
+      background: white;
+      color: black;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-bottom: 30px;
+    }
 
-.actions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-  margin-bottom: 30px;
-}
+    .section-title {
+      font-size: 20px;
+      margin-bottom: 14px;
+    }
 
-.card {
-  background: #17171d;
-  border: 1px solid #25252d;
-  border-radius: 18px;
-  padding: 20px;
-  min-height: 130px;
-  cursor: pointer;
-}
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 30px;
+    }
 
-.icon {
-  font-size: 30px;
-  margin-bottom: 12px;
-}
+    .card {
+      background: #17171d;
+      border: 1px solid #25252d;
+      border-radius: 18px;
+      padding: 20px;
+      min-height: 130px;
+      cursor: pointer;
+    }
 
-.card h3 {
-  font-size: 17px;
-  margin-bottom: 5px;
-}
+    .card:active,
+    button:active {
+      transform: scale(0.97);
+    }
 
-.card p {
-  color: #9999a3;
-  font-size: 13px;
-}
+    .icon {
+      font-size: 30px;
+      margin-bottom: 12px;
+    }
 
-.project {
-  background: #17171d;
-  border: 1px solid #25252d;
-  border-radius: 18px;
-  padding: 18px;
-  margin-bottom: 15px;
-}
+    .card h3 {
+      font-size: 17px;
+      margin-bottom: 5px;
+    }
 
-.project-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-}
+    .card p {
+      color: #9999a3;
+      font-size: 13px;
+    }
 
-.project h3 {
-  font-size: 17px;
-}
+    .project {
+      background: #17171d;
+      border: 1px solid #25252d;
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 15px;
+    }
 
-.project span {
-  color: #9999a3;
-  font-size: 13px;
-}
+    .project-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
 
-.project-buttons {
-  display: flex;
-  gap: 8px;
-  margin-top: 15px;
-}
+    .project h3 {
+      font-size: 17px;
+      word-break: break-word;
+    }
 
-.small-button {
-  flex: 1;
-  border: none;
-  border-radius: 10px;
-  padding: 10px;
-  cursor: pointer;
-  font-weight: bold;
-}
+    .project span {
+      color: #9999a3;
+      font-size: 13px;
+      white-space: nowrap;
+    }
 
-.open-button {
-  background: white;
-  color: black;
-}
+    .project-buttons {
+      display: flex;
+      gap: 8px;
+      margin-top: 15px;
+    }
 
-.edit-button {
-  background: #292931;
-  color: white;
-}
+    .small-button {
+      flex: 1;
+      border: none;
+      border-radius: 10px;
+      padding: 10px;
+      cursor: pointer;
+      font-weight: bold;
+    }
 
-.delete-button {
-  background: #3a2020;
-  color: white;
-}
+    .open-button {
+      background: white;
+      color: black;
+    }
 
-.back {
-  background: #17171d;
-  color: white;
-  border: 1px solid #292931;
-  border-radius: 12px;
-  padding: 10px 15px;
-  cursor: pointer;
-  margin-bottom: 25px;
-}
+    .edit-button {
+      background: #292931;
+      color: white;
+    }
 
-.input {
-  width: 100%;
-  padding: 16px;
-  border-radius: 14px;
-  border: 1px solid #30303a;
-  background: #0b0b0f;
-  color: white;
-  font-size: 16px;
-  outline: none;
-  margin-bottom: 15px;
-}
+    .delete-button {
+      background: #3a2020;
+      color: white;
+    }
 
-.create-button {
-  width: 100%;
-  padding: 16px;
-  border: none;
-  border-radius: 14px;
-  background: white;
-  color: black;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-}
+    .back {
+      background: #17171d;
+      color: white;
+      border: 1px solid #292931;
+      border-radius: 12px;
+      padding: 10px 15px;
+      cursor: pointer;
+      margin-bottom: 25px;
+    }
 
-.empty {
-  color: #9999a3;
-  text-align: center;
-  padding: 25px;
-}
+    .box {
+      background: #17171d;
+      border: 1px solid #292931;
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 15px;
+    }
 
-.detail-box {
-  background: #17171d;
-  border: 1px solid #292931;
-  border-radius: 20px;
-  padding: 20px;
-}
+    .box h2 {
+      margin-bottom: 8px;
+    }
 
-.detail-box h1 {
-  margin-bottom: 10px;
-}
+    .box p {
+      color: #9999a3;
+      margin-bottom: 18px;
+    }
 
-.detail-box p {
-  color: #9999a3;
-  margin-bottom: 20px;
-}
+    .input {
+      width: 100%;
+      padding: 16px;
+      border-radius: 14px;
+      border: 1px solid #30303a;
+      background: #0b0b0f;
+      color: white;
+      font-size: 16px;
+      outline: none;
+      margin-bottom: 15px;
+    }
 
-.bottom-nav {
-  position: sticky;
-  bottom: 12px;
-  background: rgba(23,23,29,0.95);
-  border: 1px solid #292931;
-  border-radius: 20px;
-  padding: 12px;
-  display: flex;
-  justify-content: space-around;
-  margin-top: 25px;
-}
+    .create-button {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 14px;
+      background: white;
+      color: black;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
 
-.nav-item {
-  background: none;
-  border: none;
-  color: #9999a3;
-  font-size: 13px;
-  cursor: pointer;
-}
+    .secondary-button {
+      width: 100%;
+      padding: 15px;
+      border: 1px solid #30303a;
+      border-radius: 14px;
+      background: #202027;
+      color: white;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+    }
 
-.nav-item.active {
-  color: white;
-  font-weight: bold;
-}
+    .empty {
+      color: #9999a3;
+      text-align: center;
+      padding: 25px;
+    }
 
-@keyframes apparition {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
+    .tool-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
 
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-</style>
+    .tool {
+      background: #17171d;
+      border: 1px solid #25252d;
+      border-radius: 18px;
+      padding: 20px;
+      cursor: pointer;
+    }
+
+    .tool-icon {
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+
+    .tool h3 {
+      margin-bottom: 6px;
+    }
+
+    .tool p {
+      color: #9999a3;
+      font-size: 13px;
+    }
+
+    .setting {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      background: #17171d;
+      border: 1px solid #292931;
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+
+    .setting p {
+      color: #9999a3;
+      font-size: 13px;
+      margin-top: 4px;
+    }
+
+    .bottom-nav {
+      position: sticky;
+      bottom: 12px;
+      background: rgba(23,23,29,0.96);
+      border: 1px solid #292931;
+      border-radius: 20px;
+      padding: 12px;
+      display: flex;
+      justify-content: space-around;
+      margin-top: 25px;
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-item {
+      background: none;
+      border: none;
+      color: #9999a3;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .nav-item.active {
+      color: white;
+      font-weight: bold;
+    }
+
+    .danger {
+      background: #3a2020;
+      color: white;
+      border: none;
+      width: 100%;
+      padding: 15px;
+      border-radius: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    @keyframes apparition {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 380px) {
+      .actions,
+      .tool-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project-buttons {
+        flex-direction: column;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
 <main class="app">
 
-<!-- ACCUEIL -->
+  <!-- ================= ACCUEIL ================= -->
 
-<section id="homeScreen" class="screen active">
+  <section id="homeScreen" class="screen active">
 
-<header>
-  <div class="logo-area">
-    <img
-      class="logo"
-      src="/Quikpro/quikpro-icon-192-1.png"
-      alt="Logo QuikPro"
+    <header>
+      <div class="logo-area">
+        <img
+          class="logo"
+          src="/Quikpro/quikpro-icon-192-1.png"
+          alt="Logo QuikPro"
+        >
+        <div class="brand">QuikPro</div>
+      </div>
+
+      <div
+        class="profile"
+        onclick="ouvrirProfil()"
+      >
+        👤
+      </div>
+    </header>
+
+    <section class="welcome">
+      <h1>Bienvenue 👋</h1>
+      <p>Tout ce dont tu as besoin, rapidement.</p>
+    </section>
+
+    <button
+      class="main-button"
+      onclick="ouvrirCreation()"
     >
-    <div class="brand">QuikPro</div>
-  </div>
+      🚀 Commencer
+    </button>
 
-  <div class="profile">👤</div>
-</header>
+    <h2 class="section-title">
+      Actions rapides
+    </h2>
 
-<section class="welcome">
-  <h1>Bienvenue 👋</h1>
-  <p>Tout ce dont tu as besoin, rapidement.</p>
-</section>
+    <section class="actions">
 
-<button class="main-button" onclick="ouvrirCreation()">
-🚀 Commencer
-</button>
+      <div
+        class="card"
+        onclick="ouvrirCreation()"
+      >
+        <div class="icon">➕</div>
+        <h3>Nouveau</h3>
+        <p>Créer un projet</p>
+      </div>
 
-<h2 class="section-title">Actions rapides</h2>
+      <div
+        class="card"
+        onclick="afficherProjets()"
+      >
+        <div class="icon">📁</div>
+        <h3>Mes projets</h3>
+        <p>Voir tes projets</p>
+      </div>
 
-<section class="actions">
+      <div
+        class="card"
+        onclick="ouvrirOutils()"
+      >
+        <div class="icon">⚡</div>
+        <h3>Outils</h3>
+        <p>Outils QuikPro</p>
+      </div>
 
-<div class="card" onclick="ouvrirCreation()">
-  <div class="icon">➕</div>
-  <h3>Nouveau</h3>
-  <p>Créer un projet</p>
-</div>
+      <div
+        class="card"
+        onclick="ouvrirParametres()"
+      >
+        <div class="icon">⚙️</div>
+        <h3>Paramètres</h3>
+        <p>Personnaliser</p>
+      </div>
 
-<div class="card" onclick="afficherProjets()">
-  <div class="icon">📁</div>
-  <h3>Mes projets</h3>
-  <p>Voir tes projets</p>
-</div>
+    </section>
 
-<div class="card" onclick="alert('Les outils arrivent bientôt ⚡')">
-  <div class="icon">⚡</div>
-  <h3>Outils</h3>
-  <p>Outils QuikPro</p>
-</div>
+    <h2 class="section-title">
+      Dernière activité
+    </h2>
 
-<div class="card" onclick="alert('Les paramètres arrivent bientôt ⚙️')">
-  <div class="icon">⚙️</div>
-  <h3>Paramètres</h3>
-  <p>Personnaliser</p>
-</div>
+    <div id="lastProject"></div>
 
-</section>
+    <nav class="bottom-nav">
 
-<h2 class="section-title">Dernière activité</h2>
+      <button
+        class="nav-item active"
+        onclick="retourAccueil()"
+      >
+        🏠<br>
+        Accueil
+      </button>
 
-<div id="lastProject"></div>
+      <button
+        class="nav-item"
+        onclick="afficherProjets()"
+      >
+        📁<br>
+        Projets
+      </button>
 
-<nav class="bottom-nav">
+      <button
+        class="nav-item"
+        onclick="ouvrirOutils()"
+      >
+        ⚡<br>
+        Outils
+      </button>
 
-<button class="nav-item active">
-🏠<br>Accueil
-</button>
+      <button
+        class="nav-item"
+        onclick="ouvrirProfil()"
+      >
+        👤<br>
+        Profil
+      </button>
 
-<button class="nav-item" onclick="afficherProjets()">
-📁<br>Projets
-</button>
+    </nav>
 
-<button class="nav-item">
-⚡<br>Outils
-</button>
-
-<button class="nav-item">
-👤<br>Profil
-</button>
-
-</nav>
-
-</section>
-
-
-<!-- CRÉATION -->
-
-<section id="createScreen" class="screen">
-
-<button class="back" onclick="retourAccueil()">
-← Retour
-</button>
-
-<div class="detail-box">
-
-<h1>Créer un projet 🚀</h1>
-
-<p>Donne un nom à ton nouveau projet.</p>
-
-<input
-id="projectName"
-class="input"
-type="text"
-placeholder="Nom du projet"
-maxlength="40"
->
-
-<button class="create-button" onclick="creerProjet()">
-Créer le projet
-</button>
-
-</div>
-
-</section>
+  </section>
 
 
-<!-- PROJETS -->
+  <!-- ================= CRÉATION ================= -->
 
-<section id="projectsScreen" class="screen">
+  <section id="createScreen" class="screen">
 
-<button class="back" onclick="retourAccueil()">
-← Retour
-</button>
+    <button
+      class="back"
+      onclick="retourAccueil()"
+    >
+      ← Retour
+    </button>
 
-<h1 style="margin-bottom:20px;">
-Mes projets 📁
-</h1>
+    <div class="box">
 
-<div id="projectsList"></div>
+      <h1>Créer un projet 🚀</h1>
 
-</section>
+      <p>
+        Donne un nom à ton nouveau projet.
+      </p>
+
+      <input
+        id="projectName"
+        class="input"
+        type="text"
+        placeholder="Nom du projet"
+        maxlength="40"
+      >
+
+      <button
+        class="create-button"
+        onclick="creerProjet()"
+      >
+        Créer le projet
+      </button>
+
+    </div>
+
+  </section>
 
 
-<!-- DÉTAIL PROJET -->
+  <!-- ================= PROJETS ================= -->
 
-<section id="detailScreen" class="screen">
+  <section id="projectsScreen" class="screen">
 
-<button class="back" onclick="afficherProjets()">
-← Mes projets
-</button>
+    <button
+      class="back"
+      onclick="retourAccueil()"
+    >
+      ← Retour
+    </button>
 
-<div class="detail-box">
+    <h1>Mes projets 📁</h1>
 
-<h1 id="detailTitle"></h1>
+    <p
+      class="description"
+      style="margin-bottom:20px;"
+    >
+      Tous tes projets sauvegardés.
+    </p>
 
-<p id="detailDate"></p>
+    <div id="projectsList"></div>
 
-<button
-class="create-button"
-onclick="modifierProjetActuel()"
->
-✏️ Modifier le projet
-</button>
+    <button
+      class="create-button"
+      onclick="ouvrirCreation()"
+    >
+      ➕ Nouveau projet
+    </button>
 
-<br><br>
+  </section>
 
-<button
-class="small-button delete-button"
-style="width:100%;"
-onclick="supprimerProjetActuel()"
->
-🗑️ Supprimer le projet
-</button>
 
-</div>
+  <!-- ================= DÉTAIL PROJET ================= -->
 
-</section>
+  <section id="detailScreen" class="screen">
 
+    <button
+      class="back"
+      onclick="afficherProjets()"
+    >
+      ← Mes projets
+    </button>
+
+    <div class="box">
+
+      <h1 id="detailTitle">
+        Projet
+      </h1>
+
+      <p id="detailDate"></p>
+
+      <button
+        class="create-button"
+        onclick="modifierProjetActuel()"
+      >
+        ✏️ Modifier le projet
+      </button>
+
+      <button
+        class="danger"
+        onclick="supprimerProjetActuel()"
+      >
+        🗑️ Supprimer le projet
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================= OUTILS ================= -->
+
+  <section id="toolsScreen" class="screen">
+
+    <button
+      class="back"
+      onclick="retourAccueil()"
+    >
+      ← Retour
+    </button>
+
+    <h1>Outils ⚡</h1>
+
+    <p
+      class="description"
+      style="margin-bottom:20px;"
+    >
+      Des outils pratiques directement dans QuikPro.
+    </p>
+
+    <div class="tool-grid">
+
+      <div
+        class="tool"
+        onclick="outilCalculatrice()"
+      >
+        <div class="tool-icon">🧮</div>
+        <h3>Calculatrice</h3>
+        <p>Faire un calcul rapidement.</p>
+      </div>
+
+      <div
+        class="tool"
+        onclick="outilNotes()"
+      >
+        <div class="tool-icon">📝</div>
+        <h3>Notes</h3>
+        <p>Écrire et sauvegarder une note.</p>
+      </div>
+
+      <div
+        class="tool"
+        onclick="outilCompteur()"
+      >
+        <div class="tool-icon">🔢</div>
+        <h3>Compteur</h3>
+        <p>Compter rapidement.</p>
+      </div>
+
+      <div
+        class="tool"
+        onclick="outilDate()"
+      >
+        <div class="tool-icon">📅</div>
+        <h3>Date</h3>
+        <p>Voir la date actuelle.</p>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================= PROFIL ================= -->
+
+  <section id="profileScreen" class="screen">
+
+    <button
+      class="back"
+      onclick="retourAccueil()"
+    >
+      ← Retour
+    </button>
+
+    <div class="box">
+
+      <h1>Profil 👤</h1>
+
+      <p>
+        Ton espace personnel QuikPro.
+      </p>
+
+      <input
+        id="profileName"
+        class="input"
+        type="text"
+        placeholder="Ton prénom"
+        maxlength="30"
+      >
+
+      <button
+        class="create-button"
+        onclick="sauvegarderProfil()"
+      >
+        💾 Enregistrer
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================= PARAMÈTRES ================= -->
+
+  <section id="settingsScreen" class="screen">
+
+    <button
+      class="back"
+      onclick="retourAccueil()"
+    >
+      ← Retour
+    </button>
+
+    <h1>Paramètres ⚙️</h1>
+
+    <br>
+
+    <div class="setting">
+
+      <div>
+        <strong>Nom de l'application</strong>
+        <p>QuikPro</p>
+      </div>
+
+      <span>🚀</span>
+
+    </div>
+
+    <div class="setting">
+
+      <div>
+        <strong>Projets sauvegardés</strong>
+        <p id="projectCount">0 projet</p>
+      </div>
+
+      <span>📁</span>
+
+    </div>
+
+    <div class="setting">
+
+      <div>
+        <strong>Version</strong>
+        <p>QuikPro 1.0</p>
+      </div>
+
+      <span>ℹ️</span>
+
+    </div>
+
+    <button
+      class="danger"
+      onclick="supprimerToutesLesDonnees()"
+    >
+      🗑️ Effacer toutes mes données
+    </button>
+
+  </section>
 
 </main>
 
 
 <script>
 
+/* =========================================
+   DONNÉES
+========================================= */
+
 let projetActuel = null;
 
 
-/* NAVIGATION */
+/* =========================================
+   NAVIGATION
+========================================= */
 
 function cacherEcrans() {
 
@@ -473,6 +800,19 @@ function cacherEcrans() {
     .forEach(screen => {
       screen.classList.remove("active");
     });
+
+}
+
+
+function retourAccueil() {
+
+  cacherEcrans();
+
+  document
+    .getElementById("homeScreen")
+    .classList.add("active");
+
+  afficherDernierProjet();
 
 }
 
@@ -492,20 +832,74 @@ function ouvrirCreation() {
 }
 
 
-function retourAccueil() {
+function ouvrirOutils() {
 
   cacherEcrans();
 
   document
-    .getElementById("homeScreen")
+    .getElementById("toolsScreen")
     .classList.add("active");
-
-  afficherDernierProjet();
 
 }
 
 
-/* CRÉATION */
+function ouvrirProfil() {
+
+  cacherEcrans();
+
+  document
+    .getElementById("profileScreen")
+    .classList.add("active");
+
+  const nom =
+    localStorage.getItem("quikpro_profile");
+
+  if (nom) {
+
+    document
+      .getElementById("profileName")
+      .value = nom;
+
+  }
+
+}
+
+
+function ouvrirParametres() {
+
+  cacherEcrans();
+
+  document
+    .getElementById("settingsScreen")
+    .classList.add("active");
+
+  actualiserCompteur();
+
+}
+
+
+/* =========================================
+   PROJETS
+========================================= */
+
+function obtenirProjets() {
+
+  return JSON.parse(
+    localStorage.getItem("quikpro_projects")
+  ) || [];
+
+}
+
+
+function sauvegarderProjets(projets) {
+
+  localStorage.setItem(
+    "quikpro_projects",
+    JSON.stringify(projets)
+  );
+
+}
+
 
 function creerProjet() {
 
@@ -515,39 +909,36 @@ function creerProjet() {
   const nom =
     input.value.trim();
 
-  if (nom === "") {
+  if (!nom) {
 
     alert("Écris un nom pour ton projet 🙂");
 
     return;
+
   }
 
-  let projets =
-    JSON.parse(
-      localStorage.getItem("quikpro_projects")
-    ) || [];
+  const projets = obtenirProjets();
 
   projets.push({
+
     id: Date.now(),
+
     nom: nom,
+
     date: new Date().toLocaleDateString("fr-FR")
+
   });
 
-  localStorage.setItem(
-    "quikpro_projects",
-    JSON.stringify(projets)
-  );
+  sauvegarderProjets(projets);
 
   input.value = "";
 
-  alert("Projet créé ! 🚀");
+  alert("Projet créé avec succès ! 🚀");
 
   afficherProjets();
 
 }
 
-
-/* AFFICHER PROJETS */
 
 function afficherProjets() {
 
@@ -560,10 +951,7 @@ function afficherProjets() {
   const liste =
     document.getElementById("projectsList");
 
-  const projets =
-    JSON.parse(
-      localStorage.getItem("quikpro_projects")
-    ) || [];
+  const projets = obtenirProjets();
 
   if (projets.length === 0) {
 
@@ -572,12 +960,13 @@ function afficherProjets() {
         <div class="empty">
           Aucun projet pour le moment.
           <br><br>
-          Appuie sur ➕ pour en créer un.
+          Crée ton premier projet avec le bouton ci-dessous.
         </div>
       </div>
     `;
 
     return;
+
   }
 
   liste.innerHTML = "";
@@ -593,7 +982,9 @@ function afficherProjets() {
 
       <div class="project-top">
 
-        <h3>🚀 ${echapper(projet.nom)}</h3>
+        <h3>
+          🚀 ${echapper(projet.nom)}
+        </h3>
 
         <span>
           ${projet.date}
@@ -621,7 +1012,7 @@ function afficherProjets() {
           class="small-button delete-button"
           onclick="supprimerProjet(${projet.id})"
         >
-          🗑️
+          🗑️ Supprimer
         </button>
 
       </div>
@@ -635,14 +1026,9 @@ function afficherProjets() {
 }
 
 
-/* OUVRIR */
-
 function ouvrirProjet(id) {
 
-  const projets =
-    JSON.parse(
-      localStorage.getItem("quikpro_projects")
-    ) || [];
+  const projets = obtenirProjets();
 
   const projet =
     projets.find(p => p.id === id);
@@ -653,7 +1039,8 @@ function ouvrirProjet(id) {
 
   document
     .getElementById("detailTitle")
-    .textContent = "🚀 " + projet.nom;
+    .textContent =
+      "🚀 " + projet.nom;
 
   document
     .getElementById("detailDate")
@@ -669,14 +1056,9 @@ function ouvrirProjet(id) {
 }
 
 
-/* MODIFIER */
-
 function modifierProjet(id) {
 
-  const projets =
-    JSON.parse(
-      localStorage.getItem("quikpro_projects")
-    ) || [];
+  const projets = obtenirProjets();
 
   const projet =
     projets.find(p => p.id === id);
@@ -691,27 +1073,23 @@ function modifierProjet(id) {
 
   if (nouveauNom === null) return;
 
-  if (nouveauNom.trim() === "") {
+  if (!nouveauNom.trim()) {
 
     alert("Le nom ne peut pas être vide.");
 
     return;
+
   }
 
   projet.nom =
     nouveauNom.trim();
 
-  localStorage.setItem(
-    "quikpro_projects",
-    JSON.stringify(projets)
-  );
+  sauvegarderProjets(projets);
 
   afficherProjets();
 
 }
 
-
-/* MODIFIER DEPUIS LE PROJET */
 
 function modifierProjetActuel() {
 
@@ -722,8 +1100,6 @@ function modifierProjetActuel() {
 }
 
 
-/* SUPPRIMER */
-
 function supprimerProjet(id) {
 
   const confirmation =
@@ -733,25 +1109,17 @@ function supprimerProjet(id) {
 
   if (!confirmation) return;
 
-  let projets =
-    JSON.parse(
-      localStorage.getItem("quikpro_projects")
-    ) || [];
+  let projets = obtenirProjets();
 
   projets =
     projets.filter(p => p.id !== id);
 
-  localStorage.setItem(
-    "quikpro_projects",
-    JSON.stringify(projets)
-  );
+  sauvegarderProjets(projets);
 
   afficherProjets();
 
 }
 
-
-/* SUPPRIMER DEPUIS LE PROJET */
 
 function supprimerProjetActuel() {
 
@@ -762,17 +1130,16 @@ function supprimerProjetActuel() {
 }
 
 
-/* DERNIER PROJET */
+/* =========================================
+   DERNIÈRE ACTIVITÉ
+========================================= */
 
 function afficherDernierProjet() {
 
   const zone =
     document.getElementById("lastProject");
 
-  const projets =
-    JSON.parse(
-      localStorage.getItem("quikpro_projects")
-    ) || [];
+  const projets = obtenirProjets();
 
   if (projets.length === 0) {
 
@@ -785,6 +1152,7 @@ function afficherDernierProjet() {
     `;
 
     return;
+
   }
 
   const dernier =
@@ -813,44 +1181,71 @@ function afficherDernierProjet() {
 }
 
 
-/* PROTECTION TEXTE */
+/* =========================================
+   OUTILS
+========================================= */
 
-function echapper(texte) {
+function outilCalculatrice() {
 
-  return texte
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+  const calcul =
+    prompt(
+      "Entre ton calcul :\nExemple : 25 + 17"
+    );
+
+  if (calcul === null) return;
+
+  try {
+
+    const resultat =
+      Function(
+        '"use strict"; return (' +
+        calcul +
+        ')'
+      )();
+
+    alert("Résultat : " + resultat);
+
+  } catch {
+
+    alert("Calcul invalide ❌");
+
+  }
 
 }
 
 
-/* SERVICE WORKER */
+function outilNotes() {
 
-if ("serviceWorker" in navigator) {
+  const ancienneNote =
+    localStorage.getItem("quikpro_note") || "";
 
-  navigator.serviceWorker
-    .register("/Quikpro/service-worker.js")
-    .then(() => {
-      console.log("Service Worker actif");
-    })
-    .catch(error => {
-      console.log(
-        "Erreur Service Worker :",
-        error
-      );
-    });
+  const note =
+    prompt(
+      "Écris ta note :",
+      ancienneNote
+    );
+
+  if (note === null) return;
+
+  localStorage.setItem(
+    "quikpro_note",
+    note
+  );
+
+  alert("Note sauvegardée 📝");
 
 }
 
 
-/* CHARGEMENT */
+function outilCompteur() {
 
-afficherDernierProjet();
+  let compteur =
+    Number(
+      localStorage.getItem(
+        "quikpro_counter"
+      )
+    ) || 0;
 
-</script>
-
-</body>
-</html>
+  const choix =
+    prompt(
+      "Compteur actuel : " +
