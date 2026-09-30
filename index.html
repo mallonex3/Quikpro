@@ -27,9 +27,8 @@
       max-width: 600px;
       margin: auto;
       padding: 22px;
+      animation: apparition 0.4s ease;
     }
-
-    /* HEADER */
 
     header {
       display: flex;
@@ -67,8 +66,6 @@
       font-size: 20px;
     }
 
-    /* ACCUEIL */
-
     .welcome {
       margin-bottom: 25px;
     }
@@ -83,8 +80,6 @@
       font-size: 16px;
     }
 
-    /* BOUTON PRINCIPAL */
-
     .main-button {
       width: 100%;
       border: none;
@@ -96,21 +91,12 @@
       font-weight: bold;
       cursor: pointer;
       margin-bottom: 30px;
-      transition: transform 0.2s;
     }
-
-    .main-button:active {
-      transform: scale(0.97);
-    }
-
-    /* TITRES */
 
     .section-title {
       font-size: 20px;
       margin-bottom: 14px;
     }
-
-    /* ACTIONS */
 
     .actions {
       display: grid;
@@ -126,15 +112,6 @@
       padding: 20px;
       min-height: 130px;
       cursor: pointer;
-      transition: transform 0.2s, background 0.2s;
-    }
-
-    .card:active {
-      transform: scale(0.97);
-    }
-
-    .card:hover {
-      background: #1d1d25;
     }
 
     .icon {
@@ -151,8 +128,6 @@
       color: #9999a3;
       font-size: 13px;
     }
-
-    /* PROJET */
 
     .project {
       background: #17171d;
@@ -177,8 +152,6 @@
       font-size: 13px;
     }
 
-    /* NAVIGATION */
-
     .bottom-nav {
       position: sticky;
       bottom: 12px;
@@ -188,7 +161,6 @@
       padding: 12px;
       display: flex;
       justify-content: space-around;
-      backdrop-filter: blur(10px);
       margin-top: 25px;
     }
 
@@ -205,10 +177,71 @@
       font-weight: bold;
     }
 
-    /* ANIMATION */
+    /* ÉCRAN CRÉATION */
 
-    .app {
-      animation: apparition 0.5s ease;
+    .screen {
+      display: none;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    .back {
+      background: #17171d;
+      color: white;
+      border: 1px solid #292931;
+      border-radius: 12px;
+      padding: 10px 15px;
+      cursor: pointer;
+      margin-bottom: 25px;
+    }
+
+    .create-box {
+      background: #17171d;
+      border: 1px solid #292931;
+      border-radius: 20px;
+      padding: 20px;
+    }
+
+    .create-box h1 {
+      margin-bottom: 10px;
+      font-size: 28px;
+    }
+
+    .create-box p {
+      color: #a5a5ad;
+      margin-bottom: 25px;
+    }
+
+    .input {
+      width: 100%;
+      padding: 16px;
+      border-radius: 14px;
+      border: 1px solid #30303a;
+      background: #0b0b0f;
+      color: white;
+      font-size: 16px;
+      outline: none;
+      margin-bottom: 15px;
+    }
+
+    .create-button {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 14px;
+      background: white;
+      color: black;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .empty {
+      color: #9999a3;
+      text-align: center;
+      padding: 20px;
     }
 
     @keyframes apparition {
@@ -229,148 +262,350 @@
 
   <main class="app">
 
-    <!-- HEADER -->
-
-    <header>
-      <div class="logo-area">
-        <img
-          class="logo"
-          src="/Quikpro/quikpro-icon-192-1.png"
-          alt="Logo QuikPro"
-        >
-
-        <div class="brand">QuikPro</div>
-      </div>
-
-      <div class="profile">👤</div>
-    </header>
-
-
     <!-- ACCUEIL -->
 
-    <section class="welcome">
-      <h1>Bienvenue 👋</h1>
-      <p>Tout ce dont tu as besoin, rapidement.</p>
+    <section id="homeScreen" class="screen active">
+
+      <header>
+        <div class="logo-area">
+          <img
+            class="logo"
+            src="/Quikpro/quikpro-icon-192-1.png"
+            alt="Logo QuikPro"
+          >
+          <div class="brand">QuikPro</div>
+        </div>
+
+        <div class="profile">👤</div>
+      </header>
+
+      <section class="welcome">
+        <h1>Bienvenue 👋</h1>
+        <p>Tout ce dont tu as besoin, rapidement.</p>
+      </section>
+
+      <button class="main-button" onclick="ouvrirCreation()">
+        🚀 Commencer
+      </button>
+
+      <h2 class="section-title">Actions rapides</h2>
+
+      <section class="actions">
+
+        <div class="card" onclick="ouvrirCreation()">
+          <div class="icon">➕</div>
+          <h3>Nouveau</h3>
+          <p>Créer un projet</p>
+        </div>
+
+        <div class="card" onclick="afficherProjets()">
+          <div class="icon">📁</div>
+          <h3>Mes projets</h3>
+          <p>Voir tes projets</p>
+        </div>
+
+        <div class="card" onclick="alert('Les outils arrivent bientôt ⚡')">
+          <div class="icon">⚡</div>
+          <h3>Outils</h3>
+          <p>Outils QuikPro</p>
+        </div>
+
+        <div class="card" onclick="alert('Les paramètres arrivent bientôt ⚙️')">
+          <div class="icon">⚙️</div>
+          <h3>Paramètres</h3>
+          <p>Personnaliser</p>
+        </div>
+
+      </section>
+
+      <h2 class="section-title">Dernière activité</h2>
+
+      <div id="lastProject" class="project">
+        <div class="empty">
+          Aucun projet pour le moment.
+        </div>
+      </div>
+
+      <nav class="bottom-nav">
+
+        <button class="nav-item active">
+          🏠<br>
+          Accueil
+        </button>
+
+        <button class="nav-item" onclick="afficherProjets()">
+          📁<br>
+          Projets
+        </button>
+
+        <button class="nav-item" onclick="alert('Les outils arrivent bientôt ⚡')">
+          ⚡<br>
+          Outils
+        </button>
+
+        <button class="nav-item" onclick="alert('Le profil arrive bientôt 👤')">
+          👤<br>
+          Profil
+        </button>
+
+      </nav>
+
     </section>
 
 
-    <!-- BOUTON PRINCIPAL -->
+    <!-- ÉCRAN CRÉATION -->
 
-    <button class="main-button" onclick="commencer()">
-      🚀 Commencer
-    </button>
+    <section id="createScreen" class="screen">
 
+      <button class="back" onclick="retourAccueil()">
+        ← Retour
+      </button>
 
-    <!-- ACTIONS RAPIDES -->
+      <div class="create-box">
 
-    <h2 class="section-title">Actions rapides</h2>
+        <h1>Créer un projet 🚀</h1>
 
-    <section class="actions">
+        <p>
+          Donne un nom à ton premier projet QuikPro.
+        </p>
 
-      <div class="card" onclick="action('nouveau')">
-        <div class="icon">➕</div>
-        <h3>Nouveau</h3>
-        <p>Créer quelque chose</p>
-      </div>
+        <input
+          id="projectName"
+          class="input"
+          type="text"
+          placeholder="Nom du projet"
+          maxlength="40"
+        >
 
-      <div class="card" onclick="action('projets')">
-        <div class="icon">📁</div>
-        <h3>Mes projets</h3>
-        <p>Retrouver tes projets</p>
-      </div>
+        <button class="create-button" onclick="creerProjet()">
+          Créer le projet
+        </button>
 
-      <div class="card" onclick="action('outils')">
-        <div class="icon">⚡</div>
-        <h3>Outils</h3>
-        <p>Accéder rapidement aux outils</p>
-      </div>
-
-      <div class="card" onclick="action('parametres')">
-        <div class="icon">⚙️</div>
-        <h3>Paramètres</h3>
-        <p>Personnaliser QuikPro</p>
       </div>
 
     </section>
 
 
-    <!-- PROJET -->
+    <!-- ÉCRAN PROJETS -->
 
-    <h2 class="section-title">Dernière activité</h2>
+    <section id="projectsScreen" class="screen">
 
-    <div class="project">
-      <div class="project-top">
-        <h3>🚀 Ton espace QuikPro</h3>
-        <span>Maintenant</span>
-      </div>
-    </div>
-
-
-    <!-- NAVIGATION -->
-
-    <nav class="bottom-nav">
-
-      <button class="nav-item active" onclick="navigation('accueil')">
-        🏠<br>
-        Accueil
+      <button class="back" onclick="retourAccueil()">
+        ← Retour
       </button>
 
-      <button class="nav-item" onclick="navigation('projets')">
-        📁<br>
-        Projets
-      </button>
+      <h1 style="margin-bottom:20px;">
+        Mes projets 📁
+      </h1>
 
-      <button class="nav-item" onclick="navigation('outils')">
-        ⚡<br>
-        Outils
-      </button>
+      <div id="projectsList"></div>
 
-      <button class="nav-item" onclick="navigation('profil')">
-        👤<br>
-        Profil
-      </button>
-
-    </nav>
+    </section>
 
   </main>
 
 
   <script>
 
-    function commencer() {
-      alert("Bienvenue sur QuikPro 🚀");
+    /* -------------------------
+       NAVIGATION
+    ------------------------- */
+
+    function cacherTousLesEcrans() {
+      document.querySelectorAll(".screen").forEach(screen => {
+        screen.classList.remove("active");
+      });
     }
 
-    function action(type) {
 
-      if (type === "nouveau") {
-        alert("Création d'un nouveau projet ➕");
-      }
+    function ouvrirCreation() {
+      cacherTousLesEcrans();
 
-      if (type === "projets") {
-        alert("Tes projets apparaîtront ici 📁");
-      }
+      document
+        .getElementById("createScreen")
+        .classList.add("active");
 
-      if (type === "outils") {
-        alert("Les outils QuikPro arrivent bientôt ⚡");
-      }
-
-      if (type === "parametres") {
-        alert("Les paramètres arrivent bientôt ⚙️");
-      }
-
+      document
+        .getElementById("projectName")
+        .focus();
     }
 
-    function navigation(page) {
-      alert("Section : " + page);
+
+    function retourAccueil() {
+      cacherTousLesEcrans();
+
+      document
+        .getElementById("homeScreen")
+        .classList.add("active");
+
+      afficherDernierProjet();
     }
 
-    /* SERVICE WORKER */
+
+    /* -------------------------
+       CRÉER UN PROJET
+    ------------------------- */
+
+    function creerProjet() {
+
+      const input = document.getElementById("projectName");
+
+      const nom = input.value.trim();
+
+      if (nom === "") {
+        alert("Écris d'abord un nom pour ton projet 🙂");
+        return;
+      }
+
+      let projets =
+        JSON.parse(localStorage.getItem("quikpro_projects")) || [];
+
+      const nouveauProjet = {
+        nom: nom,
+        date: new Date().toLocaleDateString("fr-FR")
+      };
+
+      projets.push(nouveauProjet);
+
+      localStorage.setItem(
+        "quikpro_projects",
+        JSON.stringify(projets)
+      );
+
+      input.value = "";
+
+      alert("Projet créé avec succès ! 🚀");
+
+      retourAccueil();
+    }
+
+
+    /* -------------------------
+       AFFICHER LES PROJETS
+    ------------------------- */
+
+    function afficherProjets() {
+
+      cacherTousLesEcrans();
+
+      document
+        .getElementById("projectsScreen")
+        .classList.add("active");
+
+      const liste =
+        document.getElementById("projectsList");
+
+      const projets =
+        JSON.parse(localStorage.getItem("quikpro_projects")) || [];
+
+      if (projets.length === 0) {
+
+        liste.innerHTML = `
+          <div class="project">
+            <div class="empty">
+              Tu n'as encore aucun projet.
+            </div>
+          </div>
+        `;
+
+        return;
+      }
+
+      liste.innerHTML = "";
+
+      projets.forEach((projet, index) => {
+
+        const element = document.createElement("div");
+
+        element.className = "project";
+
+        element.innerHTML = `
+          <div class="project-top">
+            <h3>🚀 ${echapperHTML(projet.nom)}</h3>
+            <span>${projet.date}</span>
+          </div>
+        `;
+
+        liste.appendChild(element);
+      });
+    }
+
+
+    /* -------------------------
+       DERNIER PROJET
+    ------------------------- */
+
+    function afficherDernierProjet() {
+
+      const zone =
+        document.getElementById("lastProject");
+
+      const projets =
+        JSON.parse(localStorage.getItem("quikpro_projects")) || [];
+
+      if (projets.length === 0) {
+
+        zone.innerHTML = `
+          <div class="empty">
+            Aucun projet pour le moment.
+          </div>
+        `;
+
+        return;
+      }
+
+      const dernier =
+        projets[projets.length - 1];
+
+      zone.innerHTML = `
+        <div class="project-top">
+          <h3>🚀 ${echapperHTML(dernier.nom)}</h3>
+          <span>${dernier.date}</span>
+        </div>
+      `;
+    }
+
+
+    /* -------------------------
+       PROTECTION DU TEXTE
+    ------------------------- */
+
+    function echapperHTML(texte) {
+
+      return texte
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+
+    /* -------------------------
+       SERVICE WORKER
+    ------------------------- */
 
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("/Quikpro/service-worker.js")
+
+      navigator.serviceWorker
+        .register("/Quikpro/service-worker.js")
         .then(() => {
           console.log("Service Worker actif");
         })
         .catch(error => {
-         
+          console.log(
+            "Erreur Service Worker :",
+            error
+          );
+        });
+    }
+
+
+    /* Charger le dernier projet */
+
+    afficherDernierProjet();
+
+  </script>
+
+</body>
+  </html>
