@@ -1,1251 +1,1132 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0b0b0f">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#111111">
+<meta name="apple-mobile-web-app-capable" content="yes">
 
-  <link rel="manifest" href="/Quikpro/manifest.json">
+<link rel="manifest" href="/Quikpro/manifest.json">
 
-  <title>QuikPro</title>
+<title>QuikPro</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
-    body {
-      background: #0b0b0f;
-      color: white;
-      min-height: 100vh;
-    }
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f5f5f5;
+  color:#111;
+  padding-bottom:80px;
+}
 
-    .app {
-      max-width: 600px;
-      margin: auto;
-      padding: 22px;
-    }
+header{
+  background:#111;
+  color:white;
+  padding:18px;
+  position:sticky;
+  top:0;
+  z-index:20;
+}
 
-    .screen {
-      display: none;
-    }
+.header{
+  max-width:1000px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
 
-    .screen.active {
-      display: block;
-      animation: apparition 0.3s ease;
-    }
+.logo{
+  font-size:25px;
+  font-weight:900;
+}
 
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 35px;
-    }
+.logo span{
+  color:#ffd400;
+}
 
-    .logo-area {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+.header button{
+  background:#ffd400;
+  color:#111;
+  border:0;
+  border-radius:12px;
+  padding:10px 14px;
+  font-weight:bold;
+}
 
-    .logo {
-      width: 48px;
-      height: 48px;
-      border-radius: 14px;
-      object-fit: cover;
-    }
+.container{
+  max-width:1000px;
+  margin:auto;
+  padding:20px;
+}
 
-    .brand {
-      font-size: 24px;
-      font-weight: bold;
-    }
+.hero{
+  background:#111;
+  color:white;
+  border-radius:25px;
+  padding:28px 22px;
+  margin-bottom:20px;
+}
 
-    .profile {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      background: #202027;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      cursor: pointer;
-    }
+.hero h1{
+  font-size:32px;
+  margin-bottom:10px;
+}
 
-    h1 {
-      font-size: 30px;
-      margin-bottom: 10px;
-    }
+.hero p{
+  color:#ddd;
+  line-height:1.5;
+  margin-bottom:20px;
+}
 
-    .welcome {
-      margin-bottom: 25px;
-    }
+.search{
+  display:flex;
+  gap:8px;
+}
 
-    .welcome h1 {
-      font-size: 32px;
-    }
+.search input{
+  flex:1;
+  padding:15px;
+  border:0;
+  border-radius:12px;
+  font-size:16px;
+}
 
-    .welcome p,
-    .description {
-      color: #a5a5ad;
-    }
+.primary{
+  background:#ffd400;
+  color:#111;
+  border:0;
+  border-radius:12px;
+  padding:14px 18px;
+  font-weight:bold;
+  cursor:pointer;
+}
 
-    .main-button {
-      width: 100%;
-      border: none;
-      border-radius: 18px;
-      padding: 20px;
-      background: white;
-      color: black;
-      font-size: 18px;
-      font-weight: bold;
-      cursor: pointer;
-      margin-bottom: 30px;
-    }
+.categories{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  padding:5px 0 15px;
+}
 
-    .section-title {
-      font-size: 20px;
-      margin-bottom: 14px;
-    }
+.category{
+  white-space:nowrap;
+  border:1px solid #ddd;
+  background:white;
+  padding:10px 14px;
+  border-radius:30px;
+  cursor:pointer;
+}
 
-    .actions {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-bottom: 30px;
-    }
+.category.active{
+  background:#111;
+  color:white;
+}
 
-    .card {
-      background: #17171d;
-      border: 1px solid #25252d;
-      border-radius: 18px;
-      padding: 20px;
-      min-height: 130px;
-      cursor: pointer;
-    }
+.section-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:18px 0 12px;
+}
 
-    .card:active,
-    button:active {
-      transform: scale(0.97);
-    }
+.section-title h2{
+  font-size:21px;
+}
 
-    .icon {
-      font-size: 30px;
-      margin-bottom: 12px;
-    }
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:15px;
+}
 
-    .card h3 {
-      font-size: 17px;
-      margin-bottom: 5px;
-    }
+.card{
+  background:white;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 4px 15px rgba(0,0,0,.07);
+}
 
-    .card p {
-      color: #9999a3;
-      font-size: 13px;
-    }
+.card-img{
+  width:100%;
+  height:150px;
+  object-fit:cover;
+  background:#ddd;
+}
 
-    .project {
-      background: #17171d;
-      border: 1px solid #25252d;
-      border-radius: 18px;
-      padding: 18px;
-      margin-bottom: 15px;
-    }
+.card-content{
+  padding:15px;
+}
 
-    .project-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-    }
+.badge{
+  display:inline-block;
+  background:#eee;
+  border-radius:20px;
+  padding:5px 9px;
+  font-size:12px;
+  margin-bottom:8px;
+}
 
-    .project h3 {
-      font-size: 17px;
-      word-break: break-word;
-    }
+.card h3{
+  margin-bottom:7px;
+}
 
-    .project span {
-      color: #9999a3;
-      font-size: 13px;
-      white-space: nowrap;
-    }
+.description{
+  color:#666;
+  font-size:14px;
+  line-height:1.4;
+  min-height:40px;
+}
 
-    .project-buttons {
-      display: flex;
-      gap: 8px;
-      margin-top: 15px;
-    }
+.price{
+  font-size:19px;
+  font-weight:bold;
+  margin-top:12px;
+}
 
-    .small-button {
-      flex: 1;
-      border: none;
-      border-radius: 10px;
-      padding: 10px;
-      cursor: pointer;
-      font-weight: bold;
-    }
+.author{
+  color:#777;
+  font-size:13px;
+  margin-top:7px;
+}
 
-    .open-button {
-      background: white;
-      color: black;
-    }
+.card-actions{
+  display:flex;
+  gap:8px;
+  margin-top:14px;
+}
 
-    .edit-button {
-      background: #292931;
-      color: white;
-    }
+.small-btn{
+  flex:1;
+  border:0;
+  border-radius:10px;
+  padding:10px;
+  font-weight:bold;
+  cursor:pointer;
+}
 
-    .delete-button {
-      background: #3a2020;
-      color: white;
-    }
+.dark{
+  background:#111;
+  color:white;
+}
 
-    .back {
-      background: #17171d;
-      color: white;
-      border: 1px solid #292931;
-      border-radius: 12px;
-      padding: 10px 15px;
-      cursor: pointer;
-      margin-bottom: 25px;
-    }
+.yellow{
+  background:#ffd400;
+  color:#111;
+}
 
-    .box {
-      background: #17171d;
-      border: 1px solid #292931;
-      border-radius: 20px;
-      padding: 20px;
-      margin-bottom: 15px;
-    }
+.white{
+  background:#eee;
+  color:#111;
+}
 
-    .box h2 {
-      margin-bottom: 8px;
-    }
+.page{
+  display:none;
+}
 
-    .box p {
-      color: #9999a3;
-      margin-bottom: 18px;
-    }
+.page.active{
+  display:block;
+}
 
-    .input {
-      width: 100%;
-      padding: 16px;
-      border-radius: 14px;
-      border: 1px solid #30303a;
-      background: #0b0b0f;
-      color: white;
-      font-size: 16px;
-      outline: none;
-      margin-bottom: 15px;
-    }
+.form{
+  background:white;
+  border-radius:20px;
+  padding:20px;
+}
 
-    .create-button {
-      width: 100%;
-      padding: 16px;
-      border: none;
-      border-radius: 14px;
-      background: white;
-      color: black;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-    }
+.form label{
+  display:block;
+  font-weight:bold;
+  margin:14px 0 6px;
+}
 
-    .secondary-button {
-      width: 100%;
-      padding: 15px;
-      border: 1px solid #30303a;
-      border-radius: 14px;
-      background: #202027;
-      color: white;
-      font-size: 15px;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 10px;
-    }
+.form input,
+.form textarea,
+.form select{
+  width:100%;
+  padding:13px;
+  border:1px solid #ddd;
+  border-radius:10px;
+  font-size:15px;
+  font-family:inherit;
+}
 
-    .empty {
-      color: #9999a3;
-      text-align: center;
-      padding: 25px;
-    }
+.form textarea{
+  min-height:110px;
+  resize:vertical;
+}
 
-    .tool-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
+.form button{
+  margin-top:18px;
+  width:100%;
+}
 
-    .tool {
-      background: #17171d;
-      border: 1px solid #25252d;
-      border-radius: 18px;
-      padding: 20px;
-      cursor: pointer;
-    }
+.preview{
+  width:100%;
+  max-height:220px;
+  object-fit:cover;
+  border-radius:15px;
+  margin-top:10px;
+  display:none;
+}
 
-    .tool-icon {
-      font-size: 32px;
-      margin-bottom: 12px;
-    }
+.profile{
+  background:#111;
+  color:white;
+  border-radius:22px;
+  padding:25px;
+  margin-bottom:20px;
+}
 
-    .tool h3 {
-      margin-bottom: 6px;
-    }
+.avatar{
+  width:75px;
+  height:75px;
+  border-radius:50%;
+  background:#ffd400;
+  color:#111;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:30px;
+  font-weight:bold;
+  margin-bottom:12px;
+}
 
-    .tool p {
-      color: #9999a3;
-      font-size: 13px;
-    }
+.empty{
+  text-align:center;
+  background:white;
+  border-radius:18px;
+  padding:30px;
+  color:#777;
+}
 
-    .setting {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 15px;
-      background: #17171d;
-      border: 1px solid #292931;
-      border-radius: 16px;
-      padding: 16px;
-      margin-bottom: 12px;
-    }
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:white;
+  border-top:1px solid #ddd;
+  display:flex;
+  justify-content:center;
+  gap:5px;
+  padding:8px;
+  z-index:30;
+}
 
-    .setting p {
-      color: #9999a3;
-      font-size: 13px;
-      margin-top: 4px;
-    }
+.nav-btn{
+  flex:1;
+  max-width:180px;
+  border:0;
+  background:white;
+  padding:9px 5px;
+  border-radius:10px;
+  font-size:12px;
+  cursor:pointer;
+}
 
-    .bottom-nav {
-      position: sticky;
-      bottom: 12px;
-      background: rgba(23,23,29,0.96);
-      border: 1px solid #292931;
-      border-radius: 20px;
-      padding: 12px;
-      display: flex;
-      justify-content: space-around;
-      margin-top: 25px;
-      backdrop-filter: blur(10px);
-    }
+.nav-btn.active{
+  background:#111;
+  color:white;
+}
 
-    .nav-item {
-      background: none;
-      border: none;
-      color: #9999a3;
-      font-size: 13px;
-      cursor: pointer;
-    }
+.modal-bg{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.6);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  z-index:100;
+}
 
-    .nav-item.active {
-      color: white;
-      font-weight: bold;
-    }
+.modal{
+  background:white;
+  border-radius:20px;
+  width:100%;
+  max-width:500px;
+  max-height:90vh;
+  overflow:auto;
+  padding:22px;
+}
 
-    .danger {
-      background: #3a2020;
-      color: white;
-      border: none;
-      width: 100%;
-      padding: 15px;
-      border-radius: 14px;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 10px;
-    }
+.modal h2{
+  margin-bottom:12px;
+}
 
-    @keyframes apparition {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
+.close{
+  float:right;
+  border:0;
+  background:#eee;
+  border-radius:50%;
+  width:35px;
+  height:35px;
+  cursor:pointer;
+}
 
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:90px;
+  transform:translateX(-50%);
+  background:#111;
+  color:white;
+  padding:13px 18px;
+  border-radius:12px;
+  display:none;
+  z-index:200;
+}
 
-    @media (max-width: 380px) {
-      .actions,
-      .tool-grid {
-        grid-template-columns: 1fr;
-      }
+@media(max-width:600px){
+  .hero h1{
+    font-size:27px;
+  }
 
-      .project-buttons {
-        flex-direction: column;
-      }
-    }
-  </style>
+  .search{
+    flex-direction:column;
+  }
+
+  .search button{
+    width:100%;
+  }
+}
+</style>
 </head>
 
 <body>
 
-<main class="app">
+<header>
+  <div class="header">
+    <div class="logo">Quik<span>Pro</span></div>
+    <button onclick="showPage('create')">+ Proposer</button>
+  </div>
+</header>
 
-  <!-- ================= ACCUEIL ================= -->
+<main class="container">
 
-  <section id="homeScreen" class="screen active">
+<!-- ACCUEIL -->
+<section id="home" class="page active">
 
-    <header>
-      <div class="logo-area">
-        <img
-          class="logo"
-          src="/Quikpro/quikpro-icon-192-1.png"
-          alt="Logo QuikPro"
-        >
-        <div class="brand">QuikPro</div>
-      </div>
-
-      <div
-        class="profile"
-        onclick="ouvrirProfil()"
-      >
-        👤
-      </div>
-    </header>
-
-    <section class="welcome">
-      <h1>Bienvenue 👋</h1>
-      <p>Tout ce dont tu as besoin, rapidement.</p>
-    </section>
-
-    <button
-      class="main-button"
-      onclick="ouvrirCreation()"
-    >
-      🚀 Commencer
-    </button>
-
-    <h2 class="section-title">
-      Actions rapides
-    </h2>
-
-    <section class="actions">
-
-      <div
-        class="card"
-        onclick="ouvrirCreation()"
-      >
-        <div class="icon">➕</div>
-        <h3>Nouveau</h3>
-        <p>Créer un projet</p>
-      </div>
-
-      <div
-        class="card"
-        onclick="afficherProjets()"
-      >
-        <div class="icon">📁</div>
-        <h3>Mes projets</h3>
-        <p>Voir tes projets</p>
-      </div>
-
-      <div
-        class="card"
-        onclick="ouvrirOutils()"
-      >
-        <div class="icon">⚡</div>
-        <h3>Outils</h3>
-        <p>Outils QuikPro</p>
-      </div>
-
-      <div
-        class="card"
-        onclick="ouvrirParametres()"
-      >
-        <div class="icon">⚙️</div>
-        <h3>Paramètres</h3>
-        <p>Personnaliser</p>
-      </div>
-
-    </section>
-
-    <h2 class="section-title">
-      Dernière activité
-    </h2>
-
-    <div id="lastProject"></div>
-
-    <nav class="bottom-nav">
-
-      <button
-        class="nav-item active"
-        onclick="retourAccueil()"
-      >
-        🏠<br>
-        Accueil
-      </button>
-
-      <button
-        class="nav-item"
-        onclick="afficherProjets()"
-      >
-        📁<br>
-        Projets
-      </button>
-
-      <button
-        class="nav-item"
-        onclick="ouvrirOutils()"
-      >
-        ⚡<br>
-        Outils
-      </button>
-
-      <button
-        class="nav-item"
-        onclick="ouvrirProfil()"
-      >
-        👤<br>
-        Profil
-      </button>
-
-    </nav>
-
-  </section>
-
-
-  <!-- ================= CRÉATION ================= -->
-
-  <section id="createScreen" class="screen">
-
-    <button
-      class="back"
-      onclick="retourAccueil()"
-    >
-      ← Retour
-    </button>
-
-    <div class="box">
-
-      <h1>Créer un projet 🚀</h1>
-
-      <p>
-        Donne un nom à ton nouveau projet.
-      </p>
-
-      <input
-        id="projectName"
-        class="input"
-        type="text"
-        placeholder="Nom du projet"
-        maxlength="40"
-      >
-
-      <button
-        class="create-button"
-        onclick="creerProjet()"
-      >
-        Créer le projet
-      </button>
-
-    </div>
-
-  </section>
-
-
-  <!-- ================= PROJETS ================= -->
-
-  <section id="projectsScreen" class="screen">
-
-    <button
-      class="back"
-      onclick="retourAccueil()"
-    >
-      ← Retour
-    </button>
-
-    <h1>Mes projets 📁</h1>
-
-    <p
-      class="description"
-      style="margin-bottom:20px;"
-    >
-      Tous tes projets sauvegardés.
+  <div class="hero">
+    <h1>Trouve quelqu'un qui sait faire.</h1>
+    <p>
+      Découvre des personnes qui proposent leurs compétences :
+      montage vidéo, graphisme, photo, informatique, audio et bien plus.
     </p>
 
-    <div id="projectsList"></div>
+    <div class="search">
+      <input id="searchInput" type="text"
+        placeholder="Rechercher une compétence..."
+        oninput="renderServices()">
 
-    <button
-      class="create-button"
-      onclick="ouvrirCreation()"
-    >
-      ➕ Nouveau projet
-    </button>
-
-  </section>
-
-
-  <!-- ================= DÉTAIL PROJET ================= -->
-
-  <section id="detailScreen" class="screen">
-
-    <button
-      class="back"
-      onclick="afficherProjets()"
-    >
-      ← Mes projets
-    </button>
-
-    <div class="box">
-
-      <h1 id="detailTitle">
-        Projet
-      </h1>
-
-      <p id="detailDate"></p>
-
-      <button
-        class="create-button"
-        onclick="modifierProjetActuel()"
-      >
-        ✏️ Modifier le projet
+      <button class="primary" onclick="renderServices()">
+        Rechercher
       </button>
-
-      <button
-        class="danger"
-        onclick="supprimerProjetActuel()"
-      >
-        🗑️ Supprimer le projet
-      </button>
-
     </div>
+  </div>
 
-  </section>
+  <div class="categories">
+    <button class="category active" onclick="setCategory('Toutes',this)">Toutes</button>
+    <button class="category" onclick="setCategory('Montage vidéo',this)">🎬 Montage</button>
+    <button class="category" onclick="setCategory('Graphisme',this)">🎨 Graphisme</button>
+    <button class="category" onclick="setCategory('Photo',this)">📸 Photo</button>
+    <button class="category" onclick="setCategory('Informatique',this)">💻 Informatique</button>
+    <button class="category" onclick="setCategory('Audio',this)">🎵 Audio</button>
+    <button class="category" onclick="setCategory('Réseaux sociaux',this)">📱 Réseaux</button>
+    <button class="category" onclick="setCategory('Autre',this)">✨ Autre</button>
+  </div>
+
+  <div class="section-title">
+    <h2>Services disponibles</h2>
+    <span id="count"></span>
+  </div>
+
+  <div id="servicesGrid" class="grid"></div>
+
+</section>
 
 
-  <!-- ================= OUTILS ================= -->
+<!-- CREATION -->
+<section id="create" class="page">
 
-  <section id="toolsScreen" class="screen">
+  <div class="section-title">
+    <h2>Proposer mes compétences</h2>
+  </div>
 
-    <button
-      class="back"
-      onclick="retourAccueil()"
-    >
-      ← Retour
+  <div class="form">
+
+    <label>Ton nom ou pseudo</label>
+    <input id="author" placeholder="Ex : Mallone">
+
+    <label>Nom du service</label>
+    <input id="serviceTitle"
+      placeholder="Ex : Montage vidéo TikTok">
+
+    <label>Catégorie</label>
+    <select id="serviceCategory">
+      <option>Montage vidéo</option>
+      <option>Graphisme</option>
+      <option>Photo</option>
+      <option>Informatique</option>
+      <option>Audio</option>
+      <option>Réseaux sociaux</option>
+      <option>Autre</option>
+    </select>
+
+    <label>Description</label>
+    <textarea id="serviceDescription"
+      placeholder="Explique ce que tu proposes..."></textarea>
+
+    <label>Prix</label>
+    <input id="servicePrice"
+      type="number"
+      min="0"
+      step="0.01"
+      placeholder="Ex : 10">
+
+    <label>Ville / secteur</label>
+    <input id="serviceLocation"
+      placeholder="Ex : Dijon">
+
+    <label>Image du service</label>
+    <input id="serviceImage"
+      type="file"
+      accept="image/*"
+      onchange="previewImage(event)">
+
+    <img id="preview" class="preview">
+
+    <button class="primary" onclick="createService()">
+      Publier mon service
     </button>
 
-    <h1>Outils ⚡</h1>
+  </div>
+</section>
 
-    <p
-      class="description"
-      style="margin-bottom:20px;"
-    >
-      Des outils pratiques directement dans QuikPro.
+
+<!-- MES SERVICES -->
+<section id="myservices" class="page">
+
+  <div class="section-title">
+    <h2>Mes services</h2>
+  </div>
+
+  <div id="myServicesGrid" class="grid"></div>
+
+</section>
+
+
+<!-- FAVORIS -->
+<section id="favorites" class="page">
+
+  <div class="section-title">
+    <h2>❤️ Mes favoris</h2>
+  </div>
+
+  <div id="favoritesGrid" class="grid"></div>
+
+</section>
+
+
+<!-- PROFIL -->
+<section id="profile" class="page">
+
+  <div class="profile">
+    <div class="avatar" id="profileAvatar">Q</div>
+    <h2 id="profileName">Mon profil</h2>
+    <p style="margin-top:8px;color:#ccc">
+      Présente tes compétences sur QuikPro.
     </p>
+  </div>
 
-    <div class="tool-grid">
+  <div class="form">
 
-      <div
-        class="tool"
-        onclick="outilCalculatrice()"
-      >
-        <div class="tool-icon">🧮</div>
-        <h3>Calculatrice</h3>
-        <p>Faire un calcul rapidement.</p>
-      </div>
+    <label>Nom / pseudo</label>
+    <input id="profileNameInput" placeholder="Ton nom">
 
-      <div
-        class="tool"
-        onclick="outilNotes()"
-      >
-        <div class="tool-icon">📝</div>
-        <h3>Notes</h3>
-        <p>Écrire et sauvegarder une note.</p>
-      </div>
+    <label>Présentation</label>
+    <textarea id="profileBio"
+      placeholder="Présente tes compétences..."></textarea>
 
-      <div
-        class="tool"
-        onclick="outilCompteur()"
-      >
-        <div class="tool-icon">🔢</div>
-        <h3>Compteur</h3>
-        <p>Compter rapidement.</p>
-      </div>
-
-      <div
-        class="tool"
-        onclick="outilDate()"
-      >
-        <div class="tool-icon">📅</div>
-        <h3>Date</h3>
-        <p>Voir la date actuelle.</p>
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- ================= PROFIL ================= -->
-
-  <section id="profileScreen" class="screen">
-
-    <button
-      class="back"
-      onclick="retourAccueil()"
-    >
-      ← Retour
+    <button class="primary" onclick="saveProfile()">
+      Enregistrer mon profil
     </button>
 
-    <div class="box">
+  </div>
 
-      <h1>Profil 👤</h1>
-
-      <p>
-        Ton espace personnel QuikPro.
-      </p>
-
-      <input
-        id="profileName"
-        class="input"
-        type="text"
-        placeholder="Ton prénom"
-        maxlength="30"
-      >
-
-      <button
-        class="create-button"
-        onclick="sauvegarderProfil()"
-      >
-        💾 Enregistrer
-      </button>
-
-    </div>
-
-  </section>
-
-
-  <!-- ================= PARAMÈTRES ================= -->
-
-  <section id="settingsScreen" class="screen">
-
-    <button
-      class="back"
-      onclick="retourAccueil()"
-    >
-      ← Retour
-    </button>
-
-    <h1>Paramètres ⚙️</h1>
-
-    <br>
-
-    <div class="setting">
-
-      <div>
-        <strong>Nom de l'application</strong>
-        <p>QuikPro</p>
-      </div>
-
-      <span>🚀</span>
-
-    </div>
-
-    <div class="setting">
-
-      <div>
-        <strong>Projets sauvegardés</strong>
-        <p id="projectCount">0 projet</p>
-      </div>
-
-      <span>📁</span>
-
-    </div>
-
-    <div class="setting">
-
-      <div>
-        <strong>Version</strong>
-        <p>QuikPro 1.0</p>
-      </div>
-
-      <span>ℹ️</span>
-
-    </div>
-
-    <button
-      class="danger"
-      onclick="supprimerToutesLesDonnees()"
-    >
-      🗑️ Effacer toutes mes données
-    </button>
-
-  </section>
+</section>
 
 </main>
 
 
+<!-- NAVIGATION -->
+<nav class="bottom-nav">
+
+  <button class="nav-btn active" onclick="showPage('home',this)">
+    🏠<br>Accueil
+  </button>
+
+  <button class="nav-btn" onclick="showPage('create',this)">
+    ➕<br>Proposer
+  </button>
+
+  <button class="nav-btn" onclick="showPage('myservices',this)">
+    📋<br>Mes services
+  </button>
+
+  <button class="nav-btn" onclick="showPage('favorites',this)">
+    ❤️<br>Favoris
+  </button>
+
+  <button class="nav-btn" onclick="showPage('profile',this)">
+    👤<br>Profil
+  </button>
+
+</nav>
+
+
+<!-- MODAL -->
+<div id="modalBg" class="modal-bg">
+
+  <div class="modal">
+
+    <button class="close" onclick="closeModal()">×</button>
+
+    <div id="modalContent"></div>
+
+  </div>
+
+</div>
+
+
+<div id="toast" class="toast"></div>
+
+
 <script>
 
-/* =========================================
-   DONNÉES
-========================================= */
+let services = JSON.parse(localStorage.getItem("quikpro_services")) || [];
 
-let projetActuel = null;
+let favorites = JSON.parse(localStorage.getItem("quikpro_favorites")) || [];
+
+let profile = JSON.parse(localStorage.getItem("quikpro_profile")) || {
+  name:"",
+  bio:""
+};
+
+let selectedCategory = "Toutes";
 
 
-/* =========================================
-   NAVIGATION
-========================================= */
+/* SERVICES DE DEMONSTRATION */
 
-function cacherEcrans() {
+if(services.length === 0){
 
-  document
-    .querySelectorAll(".screen")
-    .forEach(screen => {
-      screen.classList.remove("active");
-    });
+  services = [
 
+    {
+      id:1,
+      author:"Alex",
+      title:"Montage vidéo TikTok",
+      category:"Montage vidéo",
+      description:"Je réalise des montages courts pour TikTok, Shorts et Reels.",
+      price:10,
+      location:"Dijon",
+      image:"",
+      demo:true
+    },
+
+    {
+      id:2,
+      author:"Léo",
+      title:"Création de logo",
+      category:"Graphisme",
+      description:"Création de logos simples et modernes.",
+      price:15,
+      location:"Chalon-sur-Saône",
+      image:"",
+      demo:true
+    },
+
+    {
+      id:3,
+      author:"Max",
+      title:"Aide informatique",
+      category:"Informatique",
+      description:"Aide pour ordinateur, téléphone et logiciels.",
+      price:8,
+      location:"Bourgogne",
+      image:"",
+      demo:true
+    }
+
+  ];
+
+  saveServices();
 }
 
 
-function retourAccueil() {
+/* NAVIGATION */
 
-  cacherEcrans();
+function showPage(page,button){
 
-  document
-    .getElementById("homeScreen")
-    .classList.add("active");
-
-  afficherDernierProjet();
-
-}
-
-
-function ouvrirCreation() {
-
-  cacherEcrans();
-
-  document
-    .getElementById("createScreen")
-    .classList.add("active");
-
-  document
-    .getElementById("projectName")
-    .focus();
-
-}
-
-
-function ouvrirOutils() {
-
-  cacherEcrans();
-
-  document
-    .getElementById("toolsScreen")
-    .classList.add("active");
-
-}
-
-
-function ouvrirProfil() {
-
-  cacherEcrans();
-
-  document
-    .getElementById("profileScreen")
-    .classList.add("active");
-
-  const nom =
-    localStorage.getItem("quikpro_profile");
-
-  if (nom) {
-
-    document
-      .getElementById("profileName")
-      .value = nom;
-
-  }
-
-}
-
-
-function ouvrirParametres() {
-
-  cacherEcrans();
-
-  document
-    .getElementById("settingsScreen")
-    .classList.add("active");
-
-  actualiserCompteur();
-
-}
-
-
-/* =========================================
-   PROJETS
-========================================= */
-
-function obtenirProjets() {
-
-  return JSON.parse(
-    localStorage.getItem("quikpro_projects")
-  ) || [];
-
-}
-
-
-function sauvegarderProjets(projets) {
-
-  localStorage.setItem(
-    "quikpro_projects",
-    JSON.stringify(projets)
-  );
-
-}
-
-
-function creerProjet() {
-
-  const input =
-    document.getElementById("projectName");
-
-  const nom =
-    input.value.trim();
-
-  if (!nom) {
-
-    alert("Écris un nom pour ton projet 🙂");
-
-    return;
-
-  }
-
-  const projets = obtenirProjets();
-
-  projets.push({
-
-    id: Date.now(),
-
-    nom: nom,
-
-    date: new Date().toLocaleDateString("fr-FR")
-
+  document.querySelectorAll(".page").forEach(p=>{
+    p.classList.remove("active");
   });
 
-  sauvegarderProjets(projets);
+  document.getElementById(page).classList.add("active");
 
-  input.value = "";
-
-  alert("Projet créé avec succès ! 🚀");
-
-  afficherProjets();
-
-}
-
-
-function afficherProjets() {
-
-  cacherEcrans();
-
-  document
-    .getElementById("projectsScreen")
-    .classList.add("active");
-
-  const liste =
-    document.getElementById("projectsList");
-
-  const projets = obtenirProjets();
-
-  if (projets.length === 0) {
-
-    liste.innerHTML = `
-      <div class="project">
-        <div class="empty">
-          Aucun projet pour le moment.
-          <br><br>
-          Crée ton premier projet avec le bouton ci-dessous.
-        </div>
-      </div>
-    `;
-
-    return;
-
-  }
-
-  liste.innerHTML = "";
-
-  projets.forEach(projet => {
-
-    const element =
-      document.createElement("div");
-
-    element.className = "project";
-
-    element.innerHTML = `
-
-      <div class="project-top">
-
-        <h3>
-          🚀 ${echapper(projet.nom)}
-        </h3>
-
-        <span>
-          ${projet.date}
-        </span>
-
-      </div>
-
-      <div class="project-buttons">
-
-        <button
-          class="small-button open-button"
-          onclick="ouvrirProjet(${projet.id})"
-        >
-          👀 Ouvrir
-        </button>
-
-        <button
-          class="small-button edit-button"
-          onclick="modifierProjet(${projet.id})"
-        >
-          ✏️ Modifier
-        </button>
-
-        <button
-          class="small-button delete-button"
-          onclick="supprimerProjet(${projet.id})"
-        >
-          🗑️ Supprimer
-        </button>
-
-      </div>
-
-    `;
-
-    liste.appendChild(element);
-
+  document.querySelectorAll(".nav-btn").forEach(b=>{
+    b.classList.remove("active");
   });
 
-}
-
-
-function ouvrirProjet(id) {
-
-  const projets = obtenirProjets();
-
-  const projet =
-    projets.find(p => p.id === id);
-
-  if (!projet) return;
-
-  projetActuel = id;
-
-  document
-    .getElementById("detailTitle")
-    .textContent =
-      "🚀 " + projet.nom;
-
-  document
-    .getElementById("detailDate")
-    .textContent =
-      "Créé le " + projet.date;
-
-  cacherEcrans();
-
-  document
-    .getElementById("detailScreen")
-    .classList.add("active");
-
-}
-
-
-function modifierProjet(id) {
-
-  const projets = obtenirProjets();
-
-  const projet =
-    projets.find(p => p.id === id);
-
-  if (!projet) return;
-
-  const nouveauNom =
-    prompt(
-      "Nouveau nom du projet :",
-      projet.nom
-    );
-
-  if (nouveauNom === null) return;
-
-  if (!nouveauNom.trim()) {
-
-    alert("Le nom ne peut pas être vide.");
-
-    return;
-
+  if(button){
+    button.classList.add("active");
   }
 
-  projet.nom =
-    nouveauNom.trim();
+  if(page==="home"){
+    renderServices();
+  }
 
-  sauvegarderProjets(projets);
+  if(page==="myservices"){
+    renderMyServices();
+  }
 
-  afficherProjets();
+  if(page==="favorites"){
+    renderFavorites();
+  }
 
+  if(page==="profile"){
+    loadProfile();
+  }
+
+  window.scrollTo(0,0);
 }
 
 
-function modifierProjetActuel() {
+/* CATEGORIES */
 
-  if (projetActuel === null) return;
+function setCategory(category,button){
 
-  modifierProjet(projetActuel);
+  selectedCategory=category;
 
+  document.querySelectorAll(".category").forEach(b=>{
+    b.classList.remove("active");
+  });
+
+  button.classList.add("active");
+
+  renderServices();
 }
 
 
-function supprimerProjet(id) {
+/* AFFICHAGE */
 
-  const confirmation =
-    confirm(
-      "Voulez-vous vraiment supprimer ce projet ?"
-    );
+function renderServices(){
 
-  if (!confirmation) return;
+  const grid=document.getElementById("servicesGrid");
 
-  let projets = obtenirProjets();
+  const search=document.getElementById("searchInput")
+    .value
+    .toLowerCase()
+    .trim();
 
-  projets =
-    projets.filter(p => p.id !== id);
+  let filtered=services.filter(service=>{
 
-  sauvegarderProjets(projets);
+    const matchesCategory=
+      selectedCategory==="Toutes" ||
+      service.category===selectedCategory;
 
-  afficherProjets();
+    const text=
+      (
+        service.title+" "+
+        service.description+" "+
+        service.author+" "+
+        service.category+" "+
+        service.location
+      ).toLowerCase();
 
-}
+    const matchesSearch=
+      !search || text.includes(search);
 
+    return matchesCategory && matchesSearch;
+  });
 
-function supprimerProjetActuel() {
+  document.getElementById("count").textContent=
+    filtered.length+" service"+(filtered.length>1?"s":"");
 
-  if (projetActuel === null) return;
+  if(filtered.length===0){
 
-  supprimerProjet(projetActuel);
-
-}
-
-
-/* =========================================
-   DERNIÈRE ACTIVITÉ
-========================================= */
-
-function afficherDernierProjet() {
-
-  const zone =
-    document.getElementById("lastProject");
-
-  const projets = obtenirProjets();
-
-  if (projets.length === 0) {
-
-    zone.innerHTML = `
-      <div class="project">
-        <div class="empty">
-          Aucun projet pour le moment.
-        </div>
+    grid.innerHTML=`
+      <div class="empty">
+        <h3>Aucun service trouvé</h3>
+        <p style="margin-top:8px">
+          Essaie une autre recherche ou catégorie.
+        </p>
       </div>
     `;
 
     return;
-
   }
 
-  const dernier =
-    projets[projets.length - 1];
+  grid.innerHTML=filtered.map(serviceCard).join("");
+}
 
-  zone.innerHTML = `
 
-    <div class="project">
+function serviceCard(service){
 
-      <div class="project-top">
+  const isFavorite=favorites.includes(service.id);
 
-        <h3>
-          🚀 ${echapper(dernier.nom)}
-        </h3>
+  return `
 
-        <span>
-          ${dernier.date}
-        </span>
+  <article class="card">
+
+    ${
+      service.image
+      ?
+      `<img class="card-img" src="${service.image}">`
+      :
+      `<div class="card-img"
+        style="display:flex;align-items:center;justify-content:center;font-size:55px">
+        ${getEmoji(service.category)}
+      </div>`
+    }
+
+    <div class="card-content">
+
+      <span class="badge">${getEmoji(service.category)} ${escapeHtml(service.category)}</span>
+
+      <h3>${escapeHtml(service.title)}</h3>
+
+      <p class="description">
+        ${escapeHtml(service.description)}
+      </p>
+
+      <div class="price">
+        ${Number(service.price).toFixed(2)} €
+      </div>
+
+      <div class="author">
+        👤 ${escapeHtml(service.author)}
+        <br>
+        📍 ${escapeHtml(service.location || "Non indiqué")}
+      </div>
+
+      <div class="card-actions">
+
+        <button class="small-btn dark"
+          onclick="openService(${service.id})">
+          Voir
+        </button>
+
+        <button class="small-btn ${isFavorite?'yellow':'white'}"
+          onclick="toggleFavorite(${service.id})">
+          ${isFavorite?'❤️':'♡'}
+        </button>
 
       </div>
 
     </div>
 
+  </article>
+
+  `;
+}
+
+
+/* DETAILS */
+
+function openService(id){
+
+  const service=services.find(s=>s.id===id);
+
+  if(!service) return;
+
+  document.getElementById("modalContent").innerHTML=`
+
+    ${
+      service.image
+      ?
+      `<img src="${service.image}"
+       style="width:100%;max-height:250px;object-fit:cover;border-radius:15px;margin-bottom:15px">`
+      :
+      `<div style="font-size:70px;text-align:center;margin:10px">
+        ${getEmoji(service.category)}
+      </div>`
+    }
+
+    <span class="badge">
+      ${getEmoji(service.category)} ${escapeHtml(service.category)}
+    </span>
+
+    <h2>${escapeHtml(service.title)}</h2>
+
+    <p style="margin:12px 0;color:#555;line-height:1.5">
+      ${escapeHtml(service.description)}
+    </p>
+
+    <h2>${Number(service.price).toFixed(2)} €</h2>
+
+    <p style="margin-top:8px;color:#777">
+      👤 ${escapeHtml(service.author)}<br>
+      📍 ${escapeHtml(service.location || "Non indiqué")}
+    </p>
+
+    <button class="primary"
+      onclick="contactService(${service.id})"
+      style="width:100%;margin-top:18px">
+      📩 Demander ce service
+    </button>
+
   `;
 
+  document.getElementById("modalBg").style.display="flex";
 }
 
 
-/* =========================================
-   OUTILS
-========================================= */
+function closeModal(){
+  document.getElementById("modalBg").style.display="none";
+}
 
-function outilCalculatrice() {
 
-  const calcul =
-    prompt(
-      "Entre ton calcul :\nExemple : 25 + 17"
-    );
+/* CONTACT */
 
-  if (calcul === null) return;
+function contactService(id){
 
-  try {
+  const service=services.find(s=>s.id===id);
 
-    const resultat =
-      Function(
-        '"use strict"; return (' +
-        calcul +
-        ')'
-      )();
+  if(!service) return;
 
-    alert("Résultat : " + resultat);
+  closeModal();
 
-  } catch {
+  showToast(
+    "Demande enregistrée pour "+service.title
+  );
+}
 
-    alert("Calcul invalide ❌");
 
+/* FAVORIS */
+
+function toggleFavorite(id){
+
+  if(favorites.includes(id)){
+
+    favorites=favorites.filter(x=>x!==id);
+
+    showToast("Retiré des favoris");
+
+  }else{
+
+    favorites.push(id);
+
+    showToast("Ajouté aux favoris ❤️");
   }
 
-}
-
-
-function outilNotes() {
-
-  const ancienneNote =
-    localStorage.getItem("quikpro_note") || "";
-
-  const note =
-    prompt(
-      "Écris ta note :",
-      ancienneNote
-    );
-
-  if (note === null) return;
-
   localStorage.setItem(
-    "quikpro_note",
-    note
+    "quikpro_favorites",
+    JSON.stringify(favorites)
   );
 
-  alert("Note sauvegardée 📝");
+  renderServices();
+  renderFavorites();
+}
+
+
+function renderFavorites(){
+
+  const grid=document.getElementById("favoritesGrid");
+
+  const fav=services.filter(s=>favorites.includes(s.id));
+
+  if(fav.length===0){
+
+    grid.innerHTML=`
+      <div class="empty">
+        <h3>Aucun favori</h3>
+        <p style="margin-top:8px">
+          Ajoute des services avec ❤️
+        </p>
+      </div>
+    `;
+
+    return;
+  }
+
+  grid.innerHTML=fav.map(serviceCard).join("");
+}
+
+
+/* CREATION */
+
+function previewImage(event){
+
+  const file=event.target.files[0];
+
+  if(!file) return;
+
+  const reader=new FileReader();
+
+  reader.onload=function(e){
+
+    const preview=document.getElementById("preview");
+
+    preview.src=e.target.result;
+
+    preview.style.display="block";
+  };
+
+  reader.readAsDataURL(file);
+}
+
+
+function createService(){
+
+  const author=document.getElementById("author").value.trim();
+  const title=document.getElementById("serviceTitle").value.trim();
+  const category=document.getElementById("serviceCategory").value;
+  const description=document.getElementById("serviceDescription").value.trim();
+  const price=document.getElementById("servicePrice").value;
+  const location=document.getElementById("serviceLocation").value.trim();
+
+  const image=document.getElementById("preview").src || "";
+
+  if(!author || !title || !description || !price){
+
+    showToast("Remplis les champs principaux");
+
+    return;
+  }
+
+  const service={
+
+    id:Date.now(),
+
+    author:author,
+
+    title:title,
+
+    category:category,
+
+    description:description,
+
+    price:Number(price),
+
+    location:location || "Non indiqué",
+
+    image:image.startsWith("data:image") ? image : "",
+
+    demo:false
+  };
+
+  services.unshift(service);
+
+  saveServices();
+
+  document.getElementById("author").value="";
+  document.getElementById("serviceTitle").value="";
+  document.getElementById("serviceDescription").value="";
+  document.getElementById("servicePrice").value="";
+  document.getElementById("serviceLocation").value="";
+
+  document.getElementById("serviceImage").value="";
+
+  document.getElementById("preview").style.display="none";
+
+  showToast("Service publié avec succès 🎉");
+
+  showPage("myservices");
 
 }
 
 
-function outilCompteur() {
+/* MES SERVICES */
 
-  let compteur =
-    Number(
-      localStorage.getItem(
-        "quikpro_counter"
-      )
-    ) || 0;
+function renderMyServices(){
 
-  const choix =
-    prompt(
-      "Compteur actuel : " +
+  const grid=document.getElementById("myServicesGrid");
+
+  const myName=profile.name;
+
+  const mine=services.filter(s=>
+    !s.demo &&
+    (!myName || s.author===myName)
+  );
+
+  if(mine.length===0){
+
+    grid.innerHTML=`
+      <div class="empty">
+        <h3>Tu n'as pas encore de service</h3>
+        <button class="primary"
+          onclick="showPage('create')">
+          + Créer mon premier service
+        </button>
+      </div>
+    `;
+
+    return;
+  }
+
+  grid.innerHTML=mine.map(service=>`
+
+    <article class="card">
+
+      ${
+        service.image
+        ?
+        `<img class="card-img" src="${service.image}">`
+        :
+        `<div class="card-img"
+          style="display:flex;align-items:center;justify-content:center;font-size:55px">
+          ${getEmoji(service.category)}
+        </div>`
+      }
+
+      <div class="card-content">
+
+        <span class="badge">
+          ${escapeHtml(service.category)}
+        </span>
+
+        <h3>${escapeHtml(service.title)}</h3>
+
+        <p class="description">
+          ${escapeHtml(service.description)}
+        </p>
+
+        <div class="price">
+          ${Number(service.price).toFixed(2)} €
+        </div>
+
+        <div class="card-actions">
+
+          <button class="small-btn dark"
+            onclick="openService(${service.id})">
+            Voir
+          </button>
+
+          <button class="small-btn"
+            style="background:#ffdddd"
+            onclick="deleteService(${service.id})">
+            🗑️ Supprimer
+          </button>
+
+        </div>
+
+      </div>
+
+    </article>
+
+  `).join("");
+}
+
+
+function deleteService(id){
+
+  if(!confirm("Supprimer ce service ?")) return;
+
+  services=services.filter(s=>s.i
