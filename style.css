@@ -1,0 +1,128 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f3f4f6;
+  color: #111827;
+  padding-bottom: 80px;
+}
+
+header {
+  background: #111827;
+  color: white;
+  padding: 25px 20px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 30px;
+}
+
+header p {
+  margin-bottom: 0;
+}
+
+main {
+  max-width: 700px;
+  margin: auto;
+  padding: 20px;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 14px;
+  margin: 8px 0;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  font-size: 16px;
+  background: white;
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+button {
+  border: none;
+  border-radius: 12px;
+  padding: 12px 15px;
+  margin: 5px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.primary {
+  width: 100%;
+  background: #111827;
+  color: white;
+  padding: 15px;
+  margin-top: 10px;
+}
+
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px -5px;
+}
+
+.categories button {
+  background: white;
+  border: 1px solid #ddd;
+}
+
+.service {
+  background: white;
+  border-radius: 16px;
+  padding: 18px;
+  margin: 15px 0;
+  box-shadow: 0 3px 12px rgba(0,0,0,.08);
+}
+
+.service h3 {
+  margin-top: 0;
+}
+
+.price {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.category {
+  color: #6b7280;
+}
+
+.hidden {
+  display: none;
+}
+
+nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  background: white;
+  border-top: 1px solid #ddd;
+  display: flex;
+  justify-content: space-around;
+  z-index: 10;
+}
+
+nav button {
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+nav span {
+  font-size: 12px;
+  margin-top: 3px;
+    }
