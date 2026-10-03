@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#111827">
-  <meta name="description" content="QuikPro - Trouve ou propose des services près de chez toi">
+  <meta name="description" content="QuikPro - Trouve ou propose des services">
   <title>QuikPro</title>
 
   <style>
@@ -17,7 +17,7 @@
       font-family: Arial, sans-serif;
       background: #f3f4f6;
       color: #111827;
-      padding-bottom: 80px;
+      padding-bottom: 70px;
     }
 
     header {
@@ -65,9 +65,8 @@
       background: white;
       padding: 10px 15px;
       border-radius: 20px;
-      cursor: pointer;
       white-space: nowrap;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      cursor: pointer;
     }
 
     .category-btn.active {
@@ -84,8 +83,7 @@
     }
 
     .service h2 {
-      margin: 0 0 7px;
-      font-size: 20px;
+      margin: 0 0 8px;
     }
 
     .category {
@@ -94,17 +92,17 @@
       padding: 5px 9px;
       border-radius: 8px;
       font-size: 13px;
-      margin-bottom: 10px;
     }
 
     .description {
       color: #4b5563;
+      margin-top: 10px;
       line-height: 1.5;
     }
 
     .price {
-      font-weight: bold;
       font-size: 18px;
+      font-weight: bold;
       margin: 12px 0;
     }
 
@@ -118,16 +116,6 @@
       font-size: 16px;
       font-weight: bold;
       cursor: pointer;
-    }
-
-    .contact:hover {
-      background: #16a34a;
-    }
-
-    .empty {
-      text-align: center;
-      padding: 30px;
-      color: #6b7280;
     }
 
     .add-section {
@@ -149,6 +137,7 @@
       border: 1px solid #d1d5db;
       border-radius: 10px;
       font-size: 15px;
+      font-family: Arial, sans-serif;
     }
 
     .add-button {
@@ -163,6 +152,12 @@
       cursor: pointer;
     }
 
+    .empty {
+      text-align: center;
+      color: #6b7280;
+      padding: 30px;
+    }
+
     footer {
       position: fixed;
       bottom: 0;
@@ -171,7 +166,7 @@
       background: #111827;
       color: white;
       text-align: center;
-      padding: 14px;
+      padding: 13px;
       font-size: 13px;
     }
   </style>
@@ -187,41 +182,56 @@
 <div class="container">
 
   <input
-    type="text"
     id="search"
     class="search"
+    type="text"
     placeholder="🔎 Rechercher un service..."
   >
 
   <div class="categories">
-    <button class="category-btn active" onclick="filterCategory('Tous', this)">
+
+    <button
+      class="category-btn active"
+      onclick="filterCategory('Tous', this)">
       Tous
     </button>
 
-    <button class="category-btn" onclick="filterCategory('Informatique', this)">
+    <button
+      class="category-btn"
+      onclick="filterCategory('Informatique', this)">
       💻 Informatique
     </button>
 
-    <button class="category-btn" onclick="filterCategory('Jardinage', this)">
+    <button
+      class="category-btn"
+      onclick="filterCategory('Jardinage', this)">
       🌱 Jardinage
     </button>
 
-    <button class="category-btn" onclick="filterCategory('Bricolage', this)">
+    <button
+      class="category-btn"
+      onclick="filterCategory('Bricolage', this)">
       🔨 Bricolage
     </button>
 
-    <button class="category-btn" onclick="filterCategory('Animaux', this)">
+    <button
+      class="category-btn"
+      onclick="filterCategory('Animaux', this)">
       🐶 Animaux
     </button>
 
-    <button class="category-btn" onclick="filterCategory('Autre', this)">
+    <button
+      class="category-btn"
+      onclick="filterCategory('Autre', this)">
       ⭐ Autre
     </button>
+
   </div>
 
   <div id="services"></div>
 
   <div class="add-section">
+
     <h2>➕ Proposer un service</h2>
 
     <input
@@ -245,23 +255,27 @@
       placeholder="Prix (€)"
     >
 
+    <!-- CHAMP WHATSAPP -->
     <input
       id="phone"
       class="form-input"
       type="tel"
-      placeholder="Numéro WhatsApp"
+      placeholder="📱 Numéro WhatsApp"
     >
 
     <textarea
       id="description"
       class="form-input"
-      placeholder="Description du service"
       rows="4"
+      placeholder="Description"
     ></textarea>
 
-    <button class="add-button" onclick="addService()">
-      Publier mon service
+    <button
+      class="add-button"
+      onclick="addService()">
+      Publier
     </button>
+
   </div>
 
 </div>
@@ -272,7 +286,9 @@
 
 <script>
 
-let services = JSON.parse(localStorage.getItem("quikpro_services")) || [
+let services =
+  JSON.parse(localStorage.getItem("quikpro_services")) || [
+
   {
     title: "Aide informatique",
     category: "Informatique",
@@ -280,69 +296,107 @@ let services = JSON.parse(localStorage.getItem("quikpro_services")) || [
     description: "Aide pour ordinateur, téléphone et logiciels.",
     phone: ""
   },
+
   {
     title: "Tonte de pelouse",
     category: "Jardinage",
     price: 20,
-    description: "Je peux t'aider à entretenir ta pelouse.",
+    description: "Je peux aider à entretenir votre pelouse.",
     phone: ""
   },
+
   {
     title: "Petits travaux",
     category: "Bricolage",
     price: 15,
-    description: "Aide pour différents petits travaux à la maison.",
+    description: "Aide pour différents petits travaux.",
     phone: ""
   }
+
 ];
 
 let currentCategory = "Tous";
 
+
 function saveServices() {
-  localStorage.setItem("quikpro_services", JSON.stringify(services));
+
+  localStorage.setItem(
+    "quikpro_services",
+    JSON.stringify(services)
+  );
+
 }
+
+
+function escapeHTML(text) {
+
+  return String(text)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+}
+
 
 function displayServices() {
 
-  const container = document.getElementById("services");
-  const searchText = document
-    .getElementById("search")
-    .value
-    .toLowerCase()
-    .trim();
+  const container =
+    document.getElementById("services");
+
+  const searchText =
+    document
+      .getElementById("search")
+      .value
+      .toLowerCase()
+      .trim();
 
   container.innerHTML = "";
 
-  const filtered = services.filter(service => {
+  const filtered =
+    services.filter(service => {
 
-    const categoryMatch =
-      currentCategory === "Tous" ||
-      service.category.toLowerCase() === currentCategory.toLowerCase();
+      const categoryMatch =
+        currentCategory === "Tous" ||
+        service.category.toLowerCase() ===
+        currentCategory.toLowerCase();
 
-    const searchMatch =
-      service.title.toLowerCase().includes(searchText) ||
-      service.category.toLowerCase().includes(searchText) ||
-      service.description.toLowerCase().includes(searchText);
+      const searchMatch =
+        service.title.toLowerCase().includes(searchText) ||
+        service.category.toLowerCase().includes(searchText) ||
+        service.description.toLowerCase().includes(searchText);
 
-    return categoryMatch && searchMatch;
-  });
+      return categoryMatch && searchMatch;
+
+    });
+
 
   if (filtered.length === 0) {
+
     container.innerHTML = `
       <div class="empty">
         Aucun service trouvé.
       </div>
     `;
+
     return;
   }
 
+
   filtered.forEach(service => {
 
-    const card = document.createElement("div");
+    const card =
+      document.createElement("div");
+
     card.className = "service";
 
+
     card.innerHTML = `
-      <h2>${escapeHTML(service.title)}</h2>
+
+      <h2>
+        ${escapeHTML(service.title)}
+      </h2>
 
       <span class="category">
         ${escapeHTML(service.category)}
@@ -353,58 +407,28 @@ function displayServices() {
       </div>
 
       <div class="price">
-        ${service.price} € 
+        ${escapeHTML(service.price)} €
       </div>
 
-      <button class="contact" onclick='contactWhatsApp(${JSON.stringify(service.phone || "")}, ${JSON.stringify(service.title)})'>
+      <button
+        class="contact"
+        onclick="contactWhatsApp(
+          '${escapeHTML(service.phone || "")}',
+          '${escapeHTML(service.title)}'
+        )">
+
         💬 Contacter
+
       </button>
+
     `;
 
     container.appendChild(card);
+
   });
+
 }
 
-function escapeHTML(text) {
-  return String(text)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-}
-
-function contactWhatsApp(phone, title) {
-
-  if (!phone || phone.trim() === "") {
-
-    alert(
-      "Ce service n'a pas encore de numéro WhatsApp renseigné."
-    );
-
-    return;
-  }
-
-  let cleanPhone = phone.replace(/[^\d+]/g, "");
-
-  if (cleanPhone.startsWith("0")) {
-    cleanPhone = "33" + cleanPhone.substring(1);
-  }
-
-  cleanPhone = cleanPhone.replace("+", "");
-
-  const message =
-    "Bonjour, je vous contacte depuis QuikPro concernant le service : " +
-    title;
-
-  const whatsappURL =
-    "https://wa.me/" +
-    cleanPhone +
-    "?text=" +
-    encodeURIComponent(message);
-
-  window.open(whatsappURL, "_blank");
-}
 
 function filterCategory(category, button) {
 
@@ -412,22 +436,89 @@ function filterCategory(category, button) {
 
   document
     .querySelectorAll(".category-btn")
-    .forEach(btn => btn.classList.remove("active"));
+    .forEach(btn => {
+      btn.classList.remove("active");
+    });
 
   button.classList.add("active");
 
   displayServices();
+
 }
+
+
+function contactWhatsApp(phone, title) {
+
+  if (!phone || phone.trim() === "") {
+
+    alert(
+      "Ce service n'a pas de numéro WhatsApp renseigné."
+    );
+
+    return;
+  }
+
+
+  let cleanPhone =
+    phone.replace(/[^\d+]/g, "");
+
+
+  if (cleanPhone.startsWith("0")) {
+
+    cleanPhone =
+      "33" + cleanPhone.substring(1);
+
+  }
+
+
+  cleanPhone =
+    cleanPhone.replace("+", "");
+
+
+  const message =
+    "Bonjour, je vous contacte depuis QuikPro concernant le service : " +
+    title;
+
+
+  const whatsappURL =
+    "https://wa.me/" +
+    cleanPhone +
+    "?text=" +
+    encodeURIComponent(message);
+
+
+  window.open(
+    whatsappURL,
+    "_blank"
+  );
+
+}
+
 
 function addService() {
 
-  const title = document.getElementById("title").value.trim();
-  const category = document.getElementById("category").value.trim();
-  const price = document.getElementById("price").value.trim();
-  const phone = document.getElementById("phone").value.trim();
-  const description = document.getElementById("description").value.trim();
+  const title =
+    document.getElementById("title").value.trim();
 
-  if (!title || !category || !price || !description) {
+  const category =
+    document.getElementById("category").value.trim();
+
+  const price =
+    document.getElementById("price").value.trim();
+
+  const phone =
+    document.getElementById("phone").value.trim();
+
+  const description =
+    document.getElementById("description").value.trim();
+
+
+  if (
+    !title ||
+    !category ||
+    !price ||
+    !description
+  ) {
 
     alert(
       "Merci de remplir le nom, la catégorie, le prix et la description."
@@ -436,44 +527,57 @@ function addService() {
     return;
   }
 
+
   services.push({
+
     title: title,
+
     category: category,
+
     price: Number(price),
+
     description: description,
+
     phone: phone
+
   });
+
 
   saveServices();
 
+
   document.getElementById("title").value = "";
+
   document.getElementById("category").value = "";
+
   document.getElementById("price").value = "";
+
   document.getElementById("phone").value = "";
+
   document.getElementById("description").value = "";
 
-  currentCategory = "Tous";
-
-  document
-    .querySelectorAll(".category-btn")
-    .forEach(btn => btn.classList.remove("active"));
-
-  document
-    .querySelector(".category-btn")
-    .classList.add("active");
 
   displayServices();
 
-  alert("Service publié avec succès !");
+
+  alert(
+    "Service publié avec succès !"
+  );
+
 }
+
 
 document
   .getElementById("search")
-  .addEventListener("input", displayServices);
+  .addEventListener(
+    "input",
+    displayServices
+  );
+
 
 displayServices();
 
 </script>
 
 </body>
-  </html>
+</html>
