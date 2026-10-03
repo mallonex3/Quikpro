@@ -1,3 +1,277 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111827">
+  <meta name="description" content="QuikPro - Trouve ou propose des services près de chez toi">
+  <title>QuikPro</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f3f4f6;
+      color: #111827;
+      padding-bottom: 80px;
+    }
+
+    header {
+      background: #111827;
+      color: white;
+      padding: 25px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 34px;
+    }
+
+    header p {
+      margin: 8px 0 0;
+      color: #d1d5db;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .search {
+      width: 100%;
+      padding: 15px;
+      border: 1px solid #d1d5db;
+      border-radius: 12px;
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+
+    .categories {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+      margin-bottom: 15px;
+    }
+
+    .category-btn {
+      border: none;
+      background: white;
+      padding: 10px 15px;
+      border-radius: 20px;
+      cursor: pointer;
+      white-space: nowrap;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+
+    .category-btn.active {
+      background: #111827;
+      color: white;
+    }
+
+    .service {
+      background: white;
+      border-radius: 15px;
+      padding: 18px;
+      margin-bottom: 15px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    }
+
+    .service h2 {
+      margin: 0 0 7px;
+      font-size: 20px;
+    }
+
+    .category {
+      display: inline-block;
+      background: #e5e7eb;
+      padding: 5px 9px;
+      border-radius: 8px;
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+
+    .description {
+      color: #4b5563;
+      line-height: 1.5;
+    }
+
+    .price {
+      font-weight: bold;
+      font-size: 18px;
+      margin: 12px 0;
+    }
+
+    .contact {
+      width: 100%;
+      border: none;
+      background: #22c55e;
+      color: white;
+      padding: 13px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .contact:hover {
+      background: #16a34a;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 30px;
+      color: #6b7280;
+    }
+
+    .add-section {
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      margin-top: 25px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    }
+
+    .add-section h2 {
+      margin-top: 0;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 13px;
+      margin-bottom: 10px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      font-size: 15px;
+    }
+
+    .add-button {
+      width: 100%;
+      padding: 13px;
+      border: none;
+      border-radius: 10px;
+      background: #111827;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #111827;
+      color: white;
+      text-align: center;
+      padding: 14px;
+      font-size: 13px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>QuikPro</h1>
+  <p>Trouve ou propose un service près de chez toi</p>
+</header>
+
+<div class="container">
+
+  <input
+    type="text"
+    id="search"
+    class="search"
+    placeholder="🔎 Rechercher un service..."
+  >
+
+  <div class="categories">
+    <button class="category-btn active" onclick="filterCategory('Tous', this)">
+      Tous
+    </button>
+
+    <button class="category-btn" onclick="filterCategory('Informatique', this)">
+      💻 Informatique
+    </button>
+
+    <button class="category-btn" onclick="filterCategory('Jardinage', this)">
+      🌱 Jardinage
+    </button>
+
+    <button class="category-btn" onclick="filterCategory('Bricolage', this)">
+      🔨 Bricolage
+    </button>
+
+    <button class="category-btn" onclick="filterCategory('Animaux', this)">
+      🐶 Animaux
+    </button>
+
+    <button class="category-btn" onclick="filterCategory('Autre', this)">
+      ⭐ Autre
+    </button>
+  </div>
+
+  <div id="services"></div>
+
+  <div class="add-section">
+    <h2>➕ Proposer un service</h2>
+
+    <input
+      id="title"
+      class="form-input"
+      type="text"
+      placeholder="Nom du service"
+    >
+
+    <input
+      id="category"
+      class="form-input"
+      type="text"
+      placeholder="Catégorie"
+    >
+
+    <input
+      id="price"
+      class="form-input"
+      type="number"
+      placeholder="Prix (€)"
+    >
+
+    <input
+      id="phone"
+      class="form-input"
+      type="tel"
+      placeholder="Numéro WhatsApp"
+    >
+
+    <textarea
+      id="description"
+      class="form-input"
+      placeholder="Description du service"
+      rows="4"
+    ></textarea>
+
+    <button class="add-button" onclick="addService()">
+      Publier mon service
+    </button>
+  </div>
+
+</div>
+
+<footer>
+  QuikPro • Services entre particuliers
+</footer>
+
+<script>
+
 let services = JSON.parse(localStorage.getItem("quikpro_services")) || [
   {
     title: "Aide informatique",
@@ -10,84 +284,79 @@ let services = JSON.parse(localStorage.getItem("quikpro_services")) || [
     title: "Tonte de pelouse",
     category: "Jardinage",
     price: 20,
-    description: "Je peux aider pour l'entretien du jardin.",
+    description: "Je peux t'aider à entretenir ta pelouse.",
     phone: ""
   },
   {
-    title: "Aide aux devoirs",
-    category: "Cours",
-    price: 10,
-    description: "Soutien scolaire et aide aux exercices.",
+    title: "Petits travaux",
+    category: "Bricolage",
+    price: 15,
+    description: "Aide pour différents petits travaux à la maison.",
     phone: ""
   }
 ];
 
-let currentFilter = "Tous";
-let deferredPrompt = null;
-
-
-/* ============================= */
-/*        SAUVEGARDE             */
-/* ============================= */
+let currentCategory = "Tous";
 
 function saveServices() {
-  localStorage.setItem(
-    "quikpro_services",
-    JSON.stringify(services)
-  );
+  localStorage.setItem("quikpro_services", JSON.stringify(services));
 }
 
-
-/* ============================= */
-/*        PROTECTION HTML         */
-/* ============================= */
-
-function escapeHTML(text) {
-  const div = document.createElement("div");
-  div.textContent = String(text ?? "");
-  return div.innerHTML;
-}
-
-
-/* ============================= */
-/*       AFFICHER SERVICES        */
-/* ============================= */
-
-function displayServices(list = services) {
+function displayServices() {
 
   const container = document.getElementById("services");
-
-  if (!container) return;
+  const searchText = document
+    .getElementById("search")
+    .value
+    .toLowerCase()
+    .trim();
 
   container.innerHTML = "";
 
-  if (list.length === 0) {
-    container.innerHTML = "<p>Aucun service trouvé.</p>";
+  const filtered = services.filter(service => {
+
+    const categoryMatch =
+      currentCategory === "Tous" ||
+      service.category.toLowerCase() === currentCategory.toLowerCase();
+
+    const searchMatch =
+      service.title.toLowerCase().includes(searchText) ||
+      service.category.toLowerCase().includes(searchText) ||
+      service.description.toLowerCase().includes(searchText);
+
+    return categoryMatch && searchMatch;
+  });
+
+  if (filtered.length === 0) {
+    container.innerHTML = `
+      <div class="empty">
+        Aucun service trouvé.
+      </div>
+    `;
     return;
   }
 
-  list.forEach((service, index) => {
+  filtered.forEach(service => {
 
     const card = document.createElement("div");
-
     card.className = "service";
 
     card.innerHTML = `
-      <h3>${escapeHTML(service.title)}</h3>
+      <h2>${escapeHTML(service.title)}</h2>
 
-      <p class="category">
+      <span class="category">
         ${escapeHTML(service.category)}
-      </p>
+      </span>
 
-      <p>
+      <div class="description">
         ${escapeHTML(service.description)}
-      </p>
+      </div>
 
-      <p class="price">
-        ${escapeHTML(service.price)} €
-      </p>
+      <div class="price">
+        ${service.price} € 
+      </div>
 
-      <button onclick="contactService(${index})">
+      <button class="contact" onclick='contactWhatsApp(${JSON.stringify(service.phone || "")}, ${JSON.stringify(service.title)})'>
         💬 Contacter
       </button>
     `;
@@ -96,422 +365,115 @@ function displayServices(list = services) {
   });
 }
 
-
-/* ============================= */
-/*          FILTRES              */
-/* ============================= */
-
-function filterServices(category) {
-
-  currentFilter = category;
-
-  const searchInput =
-    document.getElementById("search");
-
-  const search = searchInput
-    ? searchInput.value.toLowerCase()
-    : "";
-
-  let result = services;
-
-  if (category !== "Tous") {
-
-    result = result.filter(
-      service => service.category === category
-    );
-  }
-
-  if (search) {
-
-    result = result.filter(service =>
-      service.title.toLowerCase().includes(search) ||
-      service.description.toLowerCase().includes(search) ||
-      service.category.toLowerCase().includes(search)
-    );
-  }
-
-  displayServices(result);
+function escapeHTML(text) {
+  return String(text)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
 
+function contactWhatsApp(phone, title) {
 
-function searchServices() {
-  filterServices(currentFilter);
+  if (!phone || phone.trim() === "") {
+
+    alert(
+      "Ce service n'a pas encore de numéro WhatsApp renseigné."
+    );
+
+    return;
+  }
+
+  let cleanPhone = phone.replace(/[^\d+]/g, "");
+
+  if (cleanPhone.startsWith("0")) {
+    cleanPhone = "33" + cleanPhone.substring(1);
+  }
+
+  cleanPhone = cleanPhone.replace("+", "");
+
+  const message =
+    "Bonjour, je vous contacte depuis QuikPro concernant le service : " +
+    title;
+
+  const whatsappURL =
+    "https://wa.me/" +
+    cleanPhone +
+    "?text=" +
+    encodeURIComponent(message);
+
+  window.open(whatsappURL, "_blank");
 }
 
+function filterCategory(category, button) {
 
-/* ============================= */
-/*        AJOUT SERVICE           */
-/* ============================= */
+  currentCategory = category;
 
-function addService() {
+  document
+    .querySelectorAll(".category-btn")
+    .forEach(btn => btn.classList.remove("active"));
 
-  const titleElement =
-    document.getElementById("serviceTitle");
-
-  const categoryElement =
-    document.getElementById("serviceCategory");
-
-  const priceElement =
-    document.getElementById("servicePrice");
-
-  const descriptionElement =
-    document.getElementById("serviceDescription");
-
-  const phoneElement =
-    document.getElementById("servicePhone");
-
-
-  if (
-    !titleElement ||
-    !categoryElement ||
-    !priceElement ||
-    !descriptionElement
-  ) {
-
-    alert(
-      "Impossible de trouver le formulaire."
-    );
-
-    return;
-  }
-
-
-  const title =
-    titleElement.value.trim();
-
-  const category =
-    categoryElement.value;
-
-  const price =
-    Number(priceElement.value);
-
-  const description =
-    descriptionElement.value.trim();
-
-  const phone =
-    phoneElement
-      ? phoneElement.value.trim()
-      : "";
-
-
-  if (!title || !description || !price) {
-
-    alert(
-      "Remplis tous les champs."
-    );
-
-    return;
-  }
-
-
-  if (!phone) {
-
-    alert(
-      "Ajoute ton numéro WhatsApp pour que les autres puissent te contacter."
-    );
-
-    return;
-  }
-
-
-  /* Retire les espaces et caractères inutiles */
-  const cleanPhone =
-    phone.replace(/[^0-9+]/g, "");
-
-
-  services.push({
-
-    title: title,
-
-    category: category,
-
-    price: price,
-
-    description: description,
-
-    phone: cleanPhone
-  });
-
-
-  saveServices();
-
-
-  titleElement.value = "";
-
-  priceElement.value = "";
-
-  descriptionElement.value = "";
-
-  if (phoneElement) {
-    phoneElement.value = "";
-  }
-
-
-  alert(
-    "Service publié !"
-  );
-
-
-  showPage("home");
+  button.classList.add("active");
 
   displayServices();
 }
 
+function addService() {
 
-/* ============================= */
-/*       CONTACT WHATSAPP         */
-/* ============================= */
+  const title = document.getElementById("title").value.trim();
+  const category = document.getElementById("category").value.trim();
+  const price = document.getElementById("price").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const description = document.getElementById("description").value.trim();
 
-function contactService(index) {
-
-  const service = services[index];
-
-
-  if (!service) {
+  if (!title || !category || !price || !description) {
 
     alert(
-      "Service introuvable."
+      "Merci de remplir le nom, la catégorie, le prix et la description."
     );
 
     return;
   }
 
+  services.push({
+    title: title,
+    category: category,
+    price: Number(price),
+    description: description,
+    phone: phone
+  });
 
-  if (!service.phone) {
+  saveServices();
 
-    alert(
-      "Ce prestataire n'a pas encore ajouté son numéro WhatsApp."
-    );
+  document.getElementById("title").value = "";
+  document.getElementById("category").value = "";
+  document.getElementById("price").value = "";
+  document.getElementById("phone").value = "";
+  document.getElementById("description").value = "";
 
-    return;
-  }
-
-
-  const message =
-    "Bonjour, je suis intéressé(e) par votre service : " +
-    service.title +
-    ". Est-ce que vous pouvez m'en dire plus ?";
-
-
-  const encodedMessage =
-    encodeURIComponent(message);
-
-
-  /*
-   * WhatsApp utilise le numéro du prestataire.
-   * Exemple :
-   * 33612345678
-   */
-
-  const phone =
-    String(service.phone)
-      .replace(/\s+/g, "")
-      .replace(/^00/, "")
-      .replace(/^\+/, "");
-
-
-  const whatsappURL =
-    "https://wa.me/" +
-    phone +
-    "?text=" +
-    encodedMessage;
-
-
-  const confirmation =
-    confirm(
-      "Tu veux contacter le prestataire pour :\n\n" +
-      service.title +
-      "\n\n" +
-      "Appuie sur OK pour ouvrir WhatsApp."
-    );
-
-
-  if (confirmation) {
-
-    window.open(
-      whatsappURL,
-      "_blank"
-    );
-  }
-}
-
-
-/* ============================= */
-/*          NAVIGATION            */
-/* ============================= */
-
-function showPage(page) {
+  currentCategory = "Tous";
 
   document
-    .querySelectorAll("main section")
-    .forEach(section => {
+    .querySelectorAll(".category-btn")
+    .forEach(btn => btn.classList.remove("active"));
 
-      section.classList.add("hidden");
+  document
+    .querySelector(".category-btn")
+    .classList.add("active");
 
-    });
+  displayServices();
 
-
-  const selectedPage =
-    document.getElementById(page);
-
-
-  if (selectedPage) {
-
-    selectedPage.classList.remove(
-      "hidden"
-    );
-  }
-
-
-  if (page === "home") {
-
-    displayServices();
-  }
+  alert("Service publié avec succès !");
 }
 
-
-/* ============================= */
-/*            PROFIL              */
-/* ============================= */
-
-function saveProfile() {
-
-  const usernameElement =
-    document.getElementById("username");
-
-
-  if (!usernameElement) return;
-
-
-  const username =
-    usernameElement.value.trim();
-
-
-  if (!username) {
-
-    alert(
-      "Entre ton prénom."
-    );
-
-    return;
-  }
-
-
-  localStorage.setItem(
-    "quikpro_username",
-    username
-  );
-
-
-  const messageElement =
-    document.getElementById(
-      "profileMessage"
-    );
-
-
-  if (messageElement) {
-
-    messageElement.textContent =
-      "Profil enregistré pour " +
-      username +
-      " !";
-  }
-}
-
-
-function loadProfile() {
-
-  const username =
-    localStorage.getItem(
-      "quikpro_username"
-    );
-
-
-  const usernameElement =
-    document.getElementById("username");
-
-
-  if (
-    username &&
-    usernameElement
-  ) {
-
-    usernameElement.value =
-      username;
-  }
-}
-
-
-/* ============================= */
-/*       INSTALLATION PWA         */
-/* ============================= */
-
-window.addEventListener(
-  "beforeinstallprompt",
-  event => {
-
-    event.preventDefault();
-
-    deferredPrompt = event;
-  }
-);
-
-
-async function installApp() {
-
-  if (!deferredPrompt) {
-
-    alert(
-      "Si Chrome ne propose pas l'installation, " +
-      "ouvre le menu ⋮ de Chrome puis choisis " +
-      "\"Installer l'application\" ou " +
-      "\"Ajouter à l'écran d'accueil\"."
-    );
-
-    return;
-  }
-
-
-  deferredPrompt.prompt();
-
-
-  await deferredPrompt.userChoice;
-
-
-  deferredPrompt = null;
-}
-
-
-/* ============================= */
-/*        SERVICE WORKER          */
-/* ============================= */
-
-if ("serviceWorker" in navigator) {
-
-  window.addEventListener(
-    "load",
-    () => {
-
-      navigator.serviceWorker
-        .register("service-worker.js")
-        .catch(error => {
-
-          console.log(
-            "Service Worker :",
-            error
-          );
-
-        });
-
-    }
-  );
-}
-
-
-/* ============================= */
-/*             START              */
-/* ============================= */
-
-loadProfile();
+document
+  .getElementById("search")
+  .addEventListener("input", displayServices);
 
 displayServices();
+
+</script>
+
+</body>
+  </html>
