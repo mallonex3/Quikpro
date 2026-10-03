@@ -1,175 +1,154 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#111827">
-  <meta name="description" content="QuikPro - Trouve ou propose des services">
-  <title>QuikPro</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QuikPro</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<style>
+* {
+  box-sizing: border-box;
+}
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f3f4f6;
-      color: #111827;
-      padding-bottom: 70px;
-    }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f3f4f6;
+  color: #111827;
+  padding-bottom: 70px;
+}
 
-    header {
-      background: #111827;
-      color: white;
-      padding: 25px 20px;
-      text-align: center;
-    }
+header {
+  background: #111827;
+  color: white;
+  text-align: center;
+  padding: 25px 15px;
+}
 
-    header h1 {
-      margin: 0;
-      font-size: 34px;
-    }
+header h1 {
+  margin: 0;
+  font-size: 34px;
+}
 
-    header p {
-      margin: 8px 0 0;
-      color: #d1d5db;
-    }
+header p {
+  margin: 8px 0 0;
+}
 
-    .container {
-      max-width: 900px;
-      margin: auto;
-      padding: 20px;
-    }
+.container {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+}
 
-    .search {
-      width: 100%;
-      padding: 15px;
-      border: 1px solid #d1d5db;
-      border-radius: 12px;
-      font-size: 16px;
-      margin-bottom: 15px;
-    }
+.search {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 16px;
+  margin-bottom: 15px;
+}
 
-    .categories {
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-      padding-bottom: 10px;
-      margin-bottom: 15px;
-    }
+.categories {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  margin-bottom: 20px;
+}
 
-    .category-btn {
-      border: none;
-      background: white;
-      padding: 10px 15px;
-      border-radius: 20px;
-      white-space: nowrap;
-      cursor: pointer;
-    }
+.category-btn {
+  border: 0;
+  padding: 10px 15px;
+  border-radius: 20px;
+  background: white;
+  white-space: nowrap;
+}
 
-    .category-btn.active {
-      background: #111827;
-      color: white;
-    }
+.category-btn.active {
+  background: #111827;
+  color: white;
+}
 
-    .service {
-      background: white;
-      border-radius: 15px;
-      padding: 18px;
-      margin-bottom: 15px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-    }
+.service,
+.add-section {
+  background: white;
+  padding: 18px;
+  border-radius: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 3px 10px rgba(0,0,0,.08);
+}
 
-    .service h2 {
-      margin: 0 0 8px;
-    }
+.service h2 {
+  margin-top: 0;
+}
 
-    .category {
-      display: inline-block;
-      background: #e5e7eb;
-      padding: 5px 9px;
-      border-radius: 8px;
-      font-size: 13px;
-    }
+.category {
+  display: inline-block;
+  background: #e5e7eb;
+  padding: 5px 9px;
+  border-radius: 8px;
+  font-size: 13px;
+}
 
-    .description {
-      color: #4b5563;
-      margin-top: 10px;
-      line-height: 1.5;
-    }
+.description {
+  margin: 12px 0;
+  color: #4b5563;
+}
 
-    .price {
-      font-size: 18px;
-      font-weight: bold;
-      margin: 12px 0;
-    }
+.price {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
 
-    .contact {
-      width: 100%;
-      border: none;
-      background: #22c55e;
-      color: white;
-      padding: 13px;
-      border-radius: 10px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-    }
+.contact {
+  width: 100%;
+  border: 0;
+  padding: 13px;
+  border-radius: 10px;
+  background: #22c55e;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+}
 
-    .add-section {
-      background: white;
-      border-radius: 15px;
-      padding: 20px;
-      margin-top: 25px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-    }
+.form-input {
+  width: 100%;
+  padding: 13px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 16px;
+}
 
-    .add-section h2 {
-      margin-top: 0;
-    }
+.add-button {
+  width: 100%;
+  padding: 14px;
+  border: 0;
+  border-radius: 10px;
+  background: #111827;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+}
 
-    .form-input {
-      width: 100%;
-      padding: 13px;
-      margin-bottom: 10px;
-      border: 1px solid #d1d5db;
-      border-radius: 10px;
-      font-size: 15px;
-      font-family: Arial, sans-serif;
-    }
+.empty {
+  text-align: center;
+  padding: 25px;
+  color: #6b7280;
+}
 
-    .add-button {
-      width: 100%;
-      padding: 13px;
-      border: none;
-      border-radius: 10px;
-      background: #111827;
-      color: white;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .empty {
-      text-align: center;
-      color: #6b7280;
-      padding: 30px;
-    }
-
-    footer {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: #111827;
-      color: white;
-      text-align: center;
-      padding: 13px;
-      font-size: 13px;
-    }
-  </style>
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #111827;
+  color: white;
+  text-align: center;
+  padding: 13px;
+}
+</style>
 </head>
 
 <body>
@@ -185,47 +164,15 @@
     id="search"
     class="search"
     type="text"
-    placeholder="🔎 Rechercher un service..."
+    placeholder="🔎 Rechercher un service"
   >
 
   <div class="categories">
-
-    <button
-      class="category-btn active"
-      onclick="filterCategory('Tous', this)">
-      Tous
-    </button>
-
-    <button
-      class="category-btn"
-      onclick="filterCategory('Informatique', this)">
-      💻 Informatique
-    </button>
-
-    <button
-      class="category-btn"
-      onclick="filterCategory('Jardinage', this)">
-      🌱 Jardinage
-    </button>
-
-    <button
-      class="category-btn"
-      onclick="filterCategory('Bricolage', this)">
-      🔨 Bricolage
-    </button>
-
-    <button
-      class="category-btn"
-      onclick="filterCategory('Animaux', this)">
-      🐶 Animaux
-    </button>
-
-    <button
-      class="category-btn"
-      onclick="filterCategory('Autre', this)">
-      ⭐ Autre
-    </button>
-
+    <button class="category-btn active" onclick="filterCategory('Tous', this)">Tous</button>
+    <button class="category-btn" onclick="filterCategory('Informatique', this)">💻 Informatique</button>
+    <button class="category-btn" onclick="filterCategory('Jardinage', this)">🌱 Jardinage</button>
+    <button class="category-btn" onclick="filterCategory('Bricolage', this)">🔨 Bricolage</button>
+    <button class="category-btn" onclick="filterCategory('Animaux', this)">🐶 Animaux</button>
   </div>
 
   <div id="services"></div>
@@ -255,7 +202,6 @@
       placeholder="Prix (€)"
     >
 
-    <!-- CHAMP WHATSAPP -->
     <input
       id="phone"
       class="form-input"
@@ -272,7 +218,8 @@
 
     <button
       class="add-button"
-      onclick="addService()">
+      onclick="addService()"
+    >
       Publier
     </button>
 
@@ -281,14 +228,14 @@
 </div>
 
 <footer>
-  QuikPro • Services entre particuliers
+  QuikPro
 </footer>
 
 <script>
 
-let services =
-  JSON.parse(localStorage.getItem("quikpro_services")) || [
-
+let services = JSON.parse(
+  localStorage.getItem("quikpro_services")
+) || [
   {
     title: "Aide informatique",
     category: "Informatique",
@@ -296,139 +243,127 @@ let services =
     description: "Aide pour ordinateur, téléphone et logiciels.",
     phone: ""
   },
-
   {
     title: "Tonte de pelouse",
     category: "Jardinage",
     price: 20,
-    description: "Je peux aider à entretenir votre pelouse.",
-    phone: ""
-  },
-
-  {
-    title: "Petits travaux",
-    category: "Bricolage",
-    price: 15,
-    description: "Aide pour différents petits travaux.",
+    description: "Aide pour entretenir une pelouse.",
     phone: ""
   }
-
 ];
 
 let currentCategory = "Tous";
 
-
 function saveServices() {
-
   localStorage.setItem(
     "quikpro_services",
     JSON.stringify(services)
   );
-
 }
-
-
-function escapeHTML(text) {
-
-  return String(text)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-
-}
-
 
 function displayServices() {
 
-  const container =
-    document.getElementById("services");
+  const container = document.getElementById("services");
 
-  const searchText =
-    document
-      .getElementById("search")
-      .value
-      .toLowerCase()
-      .trim();
+  const search = document
+    .getElementById("search")
+    .value
+    .toLowerCase();
 
   container.innerHTML = "";
 
-  const filtered =
-    services.filter(service => {
+  const results = services.filter(service => {
 
-      const categoryMatch =
-        currentCategory === "Tous" ||
-        service.category.toLowerCase() ===
-        currentCategory.toLowerCase();
+    const categoryOK =
+      currentCategory === "Tous" ||
+      service.category.toLowerCase() ===
+      currentCategory.toLowerCase();
 
-      const searchMatch =
-        service.title.toLowerCase().includes(searchText) ||
-        service.category.toLowerCase().includes(searchText) ||
-        service.description.toLowerCase().includes(searchText);
+    const searchOK =
+      service.title.toLowerCase().includes(search) ||
+      service.category.toLowerCase().includes(search) ||
+      service.description.toLowerCase().includes(search);
 
-      return categoryMatch && searchMatch;
+    return categoryOK && searchOK;
+  });
 
-    });
-
-
-  if (filtered.length === 0) {
-
-    container.innerHTML = `
-      <div class="empty">
-        Aucun service trouvé.
-      </div>
-    `;
-
+  if (results.length === 0) {
+    container.innerHTML =
+      '<div class="empty">Aucun service trouvé.</div>';
     return;
   }
 
+  results.forEach((service, index) => {
 
-  filtered.forEach(service => {
-
-    const card =
-      document.createElement("div");
+    const card = document.createElement("div");
 
     card.className = "service";
 
-
     card.innerHTML = `
-
-      <h2>
-        ${escapeHTML(service.title)}
-      </h2>
+      <h2>${service.title}</h2>
 
       <span class="category">
-        ${escapeHTML(service.category)}
+        ${service.category}
       </span>
 
       <div class="description">
-        ${escapeHTML(service.description)}
+        ${service.description}
       </div>
 
       <div class="price">
-        ${escapeHTML(service.price)} €
+        ${service.price} €
       </div>
 
       <button
         class="contact"
-        onclick="contactWhatsApp(
-          '${escapeHTML(service.phone || "")}',
-          '${escapeHTML(service.title)}'
-        )">
-
+        onclick="contactWhatsApp(${index})"
+      >
         💬 Contacter
-
       </button>
-
     `;
 
     container.appendChild(card);
-
   });
-
 }
 
+function contactWhatsApp(index) {
+
+  const service = services[index];
+
+  if (!service.phone) {
+
+    alert(
+      "Ce service n'a pas de numéro WhatsApp."
+    );
+
+    return;
+  }
+
+  let phone = service.phone
+    .replace(/\s/g, "")
+    .replace(/-/g, "")
+    .replace(/\./g, "");
+
+  if (phone.startsWith("0")) {
+    phone = "33" + phone.substring(1);
+  }
+
+  if (phone.startsWith("+")) {
+    phone = phone.substring(1);
+  }
+
+  const message =
+    "Bonjour, je vous contacte depuis QuikPro concernant votre service : " +
+    service.title;
+
+  const url =
+    "https://wa.me/" +
+    phone +
+    "?text=" +
+    encodeURIComponent(message);
+
+  window.open(url, "_blank");
+}
 
 function filterCategory(category, button) {
 
@@ -443,57 +378,7 @@ function filterCategory(category, button) {
   button.classList.add("active");
 
   displayServices();
-
 }
-
-
-function contactWhatsApp(phone, title) {
-
-  if (!phone || phone.trim() === "") {
-
-    alert(
-      "Ce service n'a pas de numéro WhatsApp renseigné."
-    );
-
-    return;
-  }
-
-
-  let cleanPhone =
-    phone.replace(/[^\d+]/g, "");
-
-
-  if (cleanPhone.startsWith("0")) {
-
-    cleanPhone =
-      "33" + cleanPhone.substring(1);
-
-  }
-
-
-  cleanPhone =
-    cleanPhone.replace("+", "");
-
-
-  const message =
-    "Bonjour, je vous contacte depuis QuikPro concernant le service : " +
-    title;
-
-
-  const whatsappURL =
-    "https://wa.me/" +
-    cleanPhone +
-    "?text=" +
-    encodeURIComponent(message);
-
-
-  window.open(
-    whatsappURL,
-    "_blank"
-  );
-
-}
-
 
 function addService() {
 
@@ -512,60 +397,35 @@ function addService() {
   const description =
     document.getElementById("description").value.trim();
 
-
-  if (
-    !title ||
-    !category ||
-    !price ||
-    !description
-  ) {
+  if (!title || !category || !price || !description) {
 
     alert(
-      "Merci de remplir le nom, la catégorie, le prix et la description."
+      "Remplis le nom, la catégorie, le prix et la description."
     );
 
     return;
   }
 
-
   services.push({
-
     title: title,
-
     category: category,
-
-    price: Number(price),
-
+    price: price,
     description: description,
-
     phone: phone
-
   });
-
 
   saveServices();
 
-
   document.getElementById("title").value = "";
-
   document.getElementById("category").value = "";
-
   document.getElementById("price").value = "";
-
   document.getElementById("phone").value = "";
-
   document.getElementById("description").value = "";
-
 
   displayServices();
 
-
-  alert(
-    "Service publié avec succès !"
-  );
-
+  alert("Service publié !");
 }
-
 
 document
   .getElementById("search")
@@ -573,7 +433,6 @@ document
     "input",
     displayServices
   );
-
 
 displayServices();
 
