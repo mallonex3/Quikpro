@@ -32,33 +32,7 @@ function escapeHTML(text) {
   return div.innerHTML;
 }
 
-function getFilteredServices() {
-  const searchInput = document.getElementById("search");
-
-  const search = searchInput
-    ? searchInput.value.trim().toLowerCase()
-    : "";
-
-  let result = services;
-
-  if (currentFilter !== "Tous") {
-    result = result.filter(
-      service => service.category === currentFilter
-    );
-  }
-
-  if (search) {
-    result = result.filter(service =>
-      service.title.toLowerCase().includes(search) ||
-      service.description.toLowerCase().includes(search) ||
-      service.category.toLowerCase().includes(search)
-    );
-  }
-
-  return result;
-}
-
-function displayServices(list = getFilteredServices()) {
+function displayServices(list = services) {
   const container = document.getElementById("services");
 
   if (!container) return;
@@ -66,18 +40,12 @@ function displayServices(list = getFilteredServices()) {
   container.innerHTML = "";
 
   if (list.length === 0) {
-    container.innerHTML = `
-      <div class="service">
-        <h3>Aucun service trouvé</h3>
-        <p>Essaie une autre recherche ou une autre catégorie.</p>
-      </div>
-    `;
+    container.innerHTML = "<p>Aucun service trouvé.</p>";
     return;
   }
 
-  list.forEach(service => {
+  list.forEach((service, index) => {
     const card = document.createElement("div");
-
     card.className = "service";
 
     card.innerHTML = `
@@ -95,7 +63,7 @@ function displayServices(list = getFilteredServices()) {
         ${escapeHTML(service.price)} €
       </p>
 
-      <button onclick="contactService('${encodeURIComponent(service.title)}')">
+      <button onclick="contactService(${index})">
         💬 Contacter
       </button>
     `;
@@ -106,11 +74,33 @@ function displayServices(list = getFilteredServices()) {
 
 function filterServices(category) {
   currentFilter = category;
-  displayServices();
+
+  const searchInput = document.getElementById("search");
+  const search = searchInput
+    ? searchInput.value.toLowerCase()
+    : "";
+
+  let result = services;
+
+  if (category !== "Tous") {
+    result = result.filter(
+      service => service.category === category
+    );
+  }
+
+  if (search) {
+    result = result.filter(service =>
+      service.title.toLowerCase().includes(search) ||
+      service.description.toLowerCase().includes(search) ||
+      service.category.toLowerCase().includes(search)
+    );
+  }
+
+  displayServices(result);
 }
 
 function searchServices() {
-  displayServices();
+  filterServices(currentFilter);
 }
 
 function addService() {
@@ -131,8 +121,8 @@ function addService() {
     .value
     .trim();
 
-  if (!title || !description || !price || price < 0) {
-    alert("Remplis correctement tous les champs.");
+  if (!title || !description || !price) {
+    alert("Remplis tous les champs.");
     return;
   }
 
@@ -155,39 +145,53 @@ function addService() {
   displayServices();
 }
 
-function contactService(encodedTitle) {
-  const title = decodeURIComponent(encodedTitle);
+
+/* ============================= */
+/*       CONTACT WHATSAPP        */
+/* ============================= */
+
+function contactService(index) {
+
+  const service = services[index];
 
   const message =
-    "Bonjour, je suis intéressé(e) par ton service : " +
-    title +
-    ". Est-ce que tu peux m'en dire plus ?";
+    "Bonjour, je suis intéressé(e) par votre service : " +
+    service.title +
+    ". Est-ce que vous pouvez m'en dire plus ?";
 
-  const encodedMessage = encodeURIComponent(message);
+  const encodedMessage =
+    encodeURIComponent(message);
 
   const whatsappURL =
     "https://wa.me/?text=" + encodedMessage;
 
-  const choice = confirm(
-    "Contacter le prestataire pour :\n\n" +
-    title +
+  const confirmation = confirm(
+    "Tu veux contacter le prestataire pour :\n\n" +
+    service.title +
     "\n\n" +
     "Appuie sur OK pour ouvrir WhatsApp."
   );
 
-  if (choice) {
+  if (confirmation) {
     window.open(whatsappURL, "_blank");
   }
 }
 
+
+/* ============================= */
+/*          NAVIGATION            */
+/* ============================= */
+
 function showPage(page) {
+
   document
     .querySelectorAll("main section")
     .forEach(section => {
       section.classList.add("hidden");
     });
 
-  const selectedPage = document.getElementById(page);
+  const selectedPage =
+    document.getElementById(page);
 
   if (selectedPage) {
     selectedPage.classList.remove("hidden");
@@ -198,39 +202,70 @@ function showPage(page) {
   }
 }
 
+
+/* ============================= */
+/*            PROFIL              */
+/* ============================= */
+
 function saveProfile() {
-  const username = document
-    .getElementById("username")
-    .value
-    .trim();
+
+  const username =
+    document
+      .getElementById("username")
+      .value
+      .trim();
 
   if (!username) {
     alert("Entre ton prénom.");
     return;
   }
 
-  localStorage.setItem("quikpro_username", username);
+  localStorage.setItem(
+    "quikpro_username",
+    username
+  );
 
-  document.getElementById("profileMessage").textContent =
-    "Profil enregistré pour " + username + " !";
+  document.getElementById(
+    "profileMessage"
+  ).textContent =
+    "Profil enregistré pour " +
+    username +
+    " !";
 }
 
 function loadProfile() {
+
   const username =
-    localStorage.getItem("quikpro_username");
+    localStorage.getItem(
+      "quikpro_username"
+    );
 
   if (username) {
-    document.getElementById("username").value = username;
+    document.getElementById(
+      "username"
+    ).value = username;
   }
 }
 
-window.addEventListener("beforeinstallprompt", event => {
-  event.preventDefault();
-  deferredPrompt = event;
-});
+
+/* ============================= */
+/*       INSTALLATION PWA         */
+/* ============================= */
+
+window.addEventListener(
+  "beforeinstallprompt",
+  event => {
+
+    event.preventDefault();
+
+    deferredPrompt = event;
+  }
+);
 
 async function installApp() {
+
   if (!deferredPrompt) {
+
     alert(
       "Si Chrome ne propose pas l'installation, " +
       "ouvre le menu ⋮ de Chrome puis choisis " +
@@ -248,15 +283,31 @@ async function installApp() {
   deferredPrompt = null;
 }
 
+
+/* ============================= */
+/*        SERVICE WORKER          */
+/* ============================= */
+
 if ("serviceWorker" in navigator) {
+
   window.addEventListener("load", () => {
+
     navigator.serviceWorker
       .register("service-worker.js")
       .catch(error => {
-        console.log("Service Worker :", error);
+        console.log(
+          "Service Worker :",
+          error
+        );
       });
+
   });
 }
+
+
+/* ============================= */
+/*             START              */
+/* ============================= */
 
 loadProfile();
 displayServices();
