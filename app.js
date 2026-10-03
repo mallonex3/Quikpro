@@ -33,11 +33,11 @@ function escapeHTML(text) {
 }
 
 function getFilteredServices() {
-  const search = document
-    .getElementById("search")
-    .value
-    .trim()
-    .toLowerCase();
+  const searchInput = document.getElementById("search");
+
+  const search = searchInput
+    ? searchInput.value.trim().toLowerCase()
+    : "";
 
   let result = services;
 
@@ -77,6 +77,7 @@ function displayServices(list = getFilteredServices()) {
 
   list.forEach(service => {
     const card = document.createElement("div");
+
     card.className = "service";
 
     card.innerHTML = `
