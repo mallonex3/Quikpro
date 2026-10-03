@@ -288,12 +288,6 @@ function addService() {
     phone.replace(/\D/g, "");
 
 
-  /*
-   * Si le numéro commence par 0,
-   * on le transforme en numéro français
-   * utilisable par WhatsApp.
-   */
-
   if (cleanPhone.startsWith("0")) {
 
     cleanPhone =
@@ -372,11 +366,6 @@ function contactService(index) {
     String(service.phone)
       .replace(/\D/g, "");
 
-
-  /*
-   * Convertit un numéro français
-   * 06XXXXXXXX en 336XXXXXXXX
-   */
 
   if (phone.startsWith("0")) {
 
